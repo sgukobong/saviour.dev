@@ -339,7 +339,7 @@ const ClientPortal: React.FC = () => {
             </div>
             <h3 className="text-xl font-bold text-white mb-2">Book a Consultation</h3>
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
-              Need direct help with your EdTech strategy, Moodle setup, or AI integration? Book a 60-minute session.
+              Need direct help with your EdTech strategy, App development, or AI integration? Book a 60-minute session.
             </p>
             <div className="flex items-end justify-between mb-6">
                <div>
