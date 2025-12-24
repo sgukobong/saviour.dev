@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import About from './pages/About';
-import Projects from './pages/Projects';
-import Publications from './pages/Publications';
-import Blog from './pages/Blog';
-import BlogPost from './pages/BlogPost';
-import ClientPortal from './pages/ClientPortal';
-import Now from './pages/Now';
-import Contact from './pages/Contact';
-import AdminPosts from './pages/AdminPosts';
-import AdminPayments from './pages/AdminPayments';
-import Payments from './pages/Payments';
 import FloatingChat from './components/FloatingChat';
+
+// Lazy load pages for performance (Code Splitting)
+const Home = React.lazy(() => import('./pages/Home'));
+const About = React.lazy(() => import('./pages/About'));
+const Projects = React.lazy(() => import('./pages/Projects'));
+const Publications = React.lazy(() => import('./pages/Publications'));
+const Blog = React.lazy(() => import('./pages/Blog'));
+const BlogPost = React.lazy(() => import('./pages/BlogPost'));
+const ClientPortal = React.lazy(() => import('./pages/ClientPortal'));
+const Now = React.lazy(() => import('./pages/Now'));
+const Contact = React.lazy(() => import('./pages/Contact'));
+const AdminPosts = React.lazy(() => import('./pages/AdminPosts'));
+const AdminPayments = React.lazy(() => import('./pages/AdminPayments'));
+const Payments = React.lazy(() => import('./pages/Payments'));
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -23,6 +25,15 @@ const ScrollToTop = () => {
   return null;
 };
 
+const PageLoader = () => (
+  <div className="min-h-[60vh] flex items-center justify-center">
+    <div className="flex flex-col items-center gap-4">
+       <span className="w-2 h-2 bg-neon-cyan rounded-full animate-ping"></span>
+       <span className="text-slate-500 font-mono text-xs uppercase tracking-widest">Loading...</span>
+    </div>
+  </div>
+);
+
 const App: React.FC = () => {
   return (
     <HashRouter>
@@ -30,20 +41,22 @@ const App: React.FC = () => {
       <div className="flex flex-col min-h-screen bg-cosmic-950 text-white selection:bg-neon-cyan selection:text-black relative">
         <Navbar />
         <main className="flex-grow pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto w-full z-10 relative">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/publications" element={<Publications />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/portal" element={<ClientPortal />} />
-            <Route path="/now" element={<Now />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/pay" element={<Payments />} />
-            <Route path="/admin/posts" element={<AdminPosts />} />
-            <Route path="/admin/payments" element={<AdminPayments />} />
-          </Routes>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/publications" element={<Publications />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/portal" element={<ClientPortal />} />
+              <Route path="/now" element={<Now />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/pay" element={<Payments />} />
+              <Route path="/admin/posts" element={<AdminPosts />} />
+              <Route path="/admin/payments" element={<AdminPayments />} />
+            </Routes>
+          </Suspense>
         </main>
         
         <FloatingChat />

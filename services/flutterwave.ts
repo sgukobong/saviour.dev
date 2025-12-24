@@ -43,7 +43,7 @@ export const initiatePayment = (
     customizations: {
       title: 'Saviour Ukobong',
       description: details.description,
-      logo: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png', // Generic secure payment icon
+      logo: '/images/logo.png', // Local logo asset
     },
     callback: (data: any) => {
       // Flutterwave's callback returns data about the transaction

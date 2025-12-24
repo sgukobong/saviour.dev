@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Markdown from 'react-markdown';
 import { supabase } from '../services/supabase';
+import SEO from '../components/SEO';
 
 interface Skill {
   id: string;
@@ -29,23 +31,22 @@ interface Experience {
 const About: React.FC = () => {
   const bio = `Hi, I’m Saviour Ukobong.
 
-I create tools that make life easier for Africans, especially in places where the network is weak, electricity is unreliable, and technology has to survive real-world constraints. My work sits at the intersection of learning, software, and practical innovation, with one goal: build systems people can rely on, anytime.
+I am an **AI Developer and EdTech Consultant based in Nigeria**, creating tools that make life easier for Africans. My specialty is building **offline-first mobile apps** and resilient web systems that perform flawlessly in places where the network is weak (2G/3G) and electricity is unreliable.
 
-Over the past five years, I’ve designed and deployed 500+ e-learning modules, supported 1,000+ call-center agents, and helped organisations move from chaotic, inconsistent training to structured, data-driven learning systems. I’ve worked across secondary schools, EdTech startups, BPO floors, and enterprise teams. Always with the same philosophy: if the infrastructure is fragile, the learning shouldn’t be.
+Over the past five years, I’ve worked as a **Moodle Developer** and Instructional Designer to deploy 500+ e-learning modules. I help organizations move from chaotic training to data-driven **Learning Management Systems (LMS)**. I’ve worked across secondary schools, EdTech startups, and BPO floors in Nigeria.
 
-I build products that work on 2G, that resume instantly after power cuts, and that sync quietly in the background when the internet decides to come back. Whether it’s a learning platform, an AI coaching tool, or a simple workflow app, I care about durability, clarity, and human-centered design.
+My philosophy is simple: if the infrastructure is fragile, the software shouldn't be.
+
+I build products that resume instantly after power cuts and sync quietly when the internet returns. Whether it’s a **custom AI coaching tool** or a lightweight school management app, I prioritize durability and human-centered design.
 
 Right now, I’m deeply focused on:
 
-• Offline-first learning platforms that stay useful even with zero connectivity
-• AI-powered coaching that gives agents real-time nudges during live calls
-• Lightweight, affordable school systems that make administration effortless for African schools
-• And increasingly, general-purpose tools that remove everyday friction for teams and communities across the continent
+- **Offline-first learning platforms** that stay useful with zero connectivity
+- **AI-powered coaching tools** for real-time agent assistance
+- **EdTech consulting** for African schools and startups
+- General-purpose apps that solve everyday friction
 
-If your school, startup, or contact centre wants technology that works everywhere, not just where the infrastructure is perfect. I’d love to partner with you and build something truly resilient.
-
-Based in Abuja, Nigeria
-Open to collaborations, new projects, and long-term partnerships`;
+If your organization needs technology that works everywhere—not just where the fiber optics are perfect—let's partner.`;
 
   const [skills, setSkills] = useState<Skill[]>([]);
 
@@ -53,26 +54,24 @@ Open to collaborations, new projects, and long-term partnerships`;
   const fallbackSkills: Skill[] = [
     // Design & Instruction
     { id: '1', category: 'Design', name: 'Instructional Design' },
-    { id: '2', category: 'Design', name: 'ADDIE' },
+    { id: '2', category: 'Design', name: 'ADDIE Model' },
     { id: '3', category: 'Design', name: "Bloom's Taxonomy" },
-    { id: '4', category: 'Design', name: 'Andragogy' },
+    { id: '4', category: 'Design', name: 'User Experience (UX)' },
     
     // Tech Stack
-    { id: '7', category: 'Tech', name: 'Moodle' },
+    { id: '7', category: 'Tech', name: 'Moodle LMS Dev' },
     { id: '8', category: 'Tech', name: 'OpenEDX' },
-    { id: '9', category: 'Tech', name: 'Supabase' },
-    { id: '10', category: 'Tech', name: 'Next.js' },
-    { id: '11', category: 'Tech', name: 'Gemini API' },
-    { id: '12', category: 'Tech', name: 'Flutter' },
-    { id: '13', category: 'Tech', name: 'Kotlin Compose' },
-    { id: '14', category: 'Tech', name: 'Articulate' },
-    { id: '15', category: 'Tech', name: 'iSpring' },
+    { id: '9', category: 'Tech', name: 'Supabase / SQL' },
+    { id: '10', category: 'Tech', name: 'Next.js & React' },
+    { id: '11', category: 'Tech', name: 'Gemini AI API' },
+    { id: '12', category: 'Tech', name: 'Flutter (Mobile)' },
+    { id: '13', category: 'Tech', name: 'PWA Development' },
+    { id: '14', category: 'Tech', name: 'Articulate 360' },
 
     // Analytics
-    { id: '16', category: 'Analytics', name: 'SPSS' },
-    { id: '17', category: 'Analytics', name: 'Jamovi' },
-    { id: '18', category: 'Analytics', name: 'Learning Analytics' },
-    { id: '19', category: 'Analytics', name: 'Kirkpatrick Evaluation' },
+    { id: '16', category: 'Analytics', name: 'Data Analysis (SPSS)' },
+    { id: '17', category: 'Analytics', name: 'Learning Analytics' },
+    { id: '18', category: 'Analytics', name: 'ROI Measurement' },
   ];
 
   // Credentials Data (Credly style)
@@ -83,7 +82,7 @@ Open to collaborations, new projects, and long-term partnerships`;
       issuer: 'Google',
       date: '2025',
       status: 'active',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg',
+      image: '/images/credentials/google.svg',
       url: 'https://coursera.org/share/905f20411e2bb0bfbc4ac10583486a8c'
     },
     {
@@ -92,7 +91,7 @@ Open to collaborations, new projects, and long-term partnerships`;
       issuer: 'IBM',
       date: 'In Progress',
       status: 'in-progress',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg',
+      image: '/images/credentials/ibm.svg',
       url: '#'
     }
   ];
@@ -101,14 +100,12 @@ Open to collaborations, new projects, and long-term partnerships`;
     {
       id: '1',
       role: 'EdTech Consultant',
-      company: 'Asterverse Integrated Solutions & Allied Services (ISAS)',
+      company: 'Asterverse Integrated Solutions (ISAS)',
       period: 'Jan 2025 – Present',
       points: [
-        'Consulted on the design, deployment, and management of LMS platforms for schools, startups, and organisations.',
-        'Supported faculty and HR teams in transitioning to digital-first learning through tailored training interventions.',
-        'Designed and delivered blended and e-learning programs, integrating tools such as Moodle, iSpring, and Articulate.',
-        'Collaborated with cross-functional teams to align learning technologies with organisational goals.',
-        'Introduced analytics-driven reporting to measure training effectiveness and ROI.'
+        'Consulted on the design and deployment of LMS platforms for Nigerian schools and startups.',
+        'Transitioned faculty to digital-first learning through tailored training interventions.',
+        'Integrated tools such as Moodle, iSpring, and Articulate for offline-ready content.'
       ]
     },
     {
@@ -117,10 +114,9 @@ Open to collaborations, new projects, and long-term partnerships`;
       company: 'Outsource to Nigeria Initiative (OTNI)',
       period: 'May 2024 – Present',
       points: [
-        'Designed competency-based learning programs to upskill teams, aligning with organisational goals.',
-        'Administered Moodle LMS and created interactive, multimedia-rich content using iSpring, Articulate, and Canva.',
-        'Partnered with leadership to identify skill gaps and create tailored digital learning solutions.',
-        'Monitored and evaluated training effectiveness with measurable improvements.'
+        'Designed competency-based learning programs for workforce upskilling.',
+        'Administered Moodle LMS and created interactive, multimedia-rich content.',
+        'Identified skill gaps and created tailored digital learning solutions.'
       ]
     },
     {
@@ -129,20 +125,9 @@ Open to collaborations, new projects, and long-term partnerships`;
       company: 'Worknation',
       period: 'Mar 2024 – Present',
       points: [
-        'Managed and optimised the LMS platform for seamless virtual learning experiences.',
+        'Managed and optimised the LMS platform for virtual learning experiences.',
         'Produced analytics-based reports on learner progress and program impact.',
-        'Delivered technical support and facilitated adoption of the LMS among staff and learners.'
-      ]
-    },
-    {
-      id: '4',
-      role: 'LMS Specialist',
-      company: 'Outsource Global',
-      period: 'Feb 2024 – Present',
-      points: [
-        'Configured and managed LMS platforms to support onboarding and workforce training programs.',
-        'Designed structured learning paths for call centre staff, reducing average onboarding time by 20%.',
-        'Produced adoption and performance reports to guide management in workforce development initiatives.'
+        'Facilitated adoption of the LMS among staff and learners.'
       ]
     }
   ];
@@ -181,24 +166,27 @@ Open to collaborations, new projects, and long-term partnerships`;
 
   return (
     <div className="max-w-6xl mx-auto">
+      <SEO 
+        title="About Me"
+        description="Learn about Saviour Ukobong's journey from instructional design to building AI-powered offline-first software for the African context. Expertise in Moodle, React, and Flutter."
+        keywords={['Saviour Ukobong Bio', 'About AI Developer', 'EdTech Experience', 'Moodle Consultant']}
+      />
+
       {/* Intro Section with Photo */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-24">
         
         {/* Photo Column */}
         <div className="md:col-span-5 lg:col-span-4">
            <div className="sticky top-32 group">
-              {/* Animated Glow Border */}
               <div className="absolute -inset-0.5 bg-gradient-to-br from-neon-cyan via-transparent to-neon-cyan rounded-[2rem] opacity-30 blur-md group-hover:opacity-70 transition duration-1000"></div>
               
               <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden border border-white/10 bg-cosmic-900 shadow-2xl">
                 <img 
-                  /* REPLACE THIS URL WITH YOUR PHOTO */
-                  src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=800&auto=format&fit=crop" 
-                  alt="Saviour Ukobong" 
+                  src="/images/profile.jpg" 
+                  alt="Saviour Ukobong - AI Developer" 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0" 
                 />
                 
-                {/* Floating Badge */}
                 <div className="absolute bottom-4 left-4 right-4 p-4 bg-black/60 backdrop-blur-xl rounded-2xl border border-white/10">
                    <div className="text-white font-medium text-lg">Saviour Ukobong</div>
                    <div className="text-slate-400 text-sm flex items-center gap-2">
@@ -212,18 +200,43 @@ Open to collaborations, new projects, and long-term partnerships`;
 
         {/* Bio Text Column */}
         <div className="md:col-span-7 lg:col-span-8 flex flex-col">
-            <h2 className="text-4xl md:text-section font-medium tracking-tight mb-8">About Me</h2>
+            <h1 className="text-4xl md:text-section font-medium tracking-tight mb-8">About Me</h1>
             <div className="glass-panel p-8 md:p-10 rounded-3xl relative overflow-hidden h-full flex flex-col items-start">
               <div className="absolute top-0 right-0 w-32 h-32 bg-neon-cyan/10 rounded-full blur-[50px]"></div>
-              <p className="text-base md:text-lg leading-relaxed text-slate-200 whitespace-pre-wrap mb-8">
-                {bio}
-              </p>
+              
+              <div className="text-base md:text-lg leading-relaxed text-slate-200 mb-8 w-full">
+                <Markdown
+                  components={{
+                    p: ({node, ...props}) => <p className="mb-4" {...props} />,
+                    strong: ({node, ...props}) => <strong className="text-white font-semibold" {...props} />,
+                    ul: ({node, ...props}) => <ul className="list-disc pl-5 space-y-2 mb-6 marker:text-neon-cyan" {...props} />,
+                    li: ({node, ...props}) => <li className="pl-1" {...props} />
+                  }}
+                >
+                  {bio}
+                </Markdown>
+              </div>
+
+              {/* YouTube Embed Section */}
+              <div className="w-full aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl mb-10 relative bg-black/50 group">
+                <iframe 
+                    src="https://www.youtube.com/embed/HmaMkg2sHIc" 
+                    title="YouTube video player"
+                    className="absolute inset-0 w-full h-full"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                ></iframe>
+                <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    <p className="text-xs text-white/70 text-center font-mono uppercase tracking-widest">Video Introduction</p>
+                </div>
+              </div>
               
               <Link 
                 to="/contact" 
                 className="inline-flex items-center gap-2 px-6 py-3 bg-neon-cyan/10 border border-neon-cyan/20 rounded-full text-neon-cyan font-medium hover:bg-neon-cyan hover:text-black transition-all group mt-auto"
               >
-                Let's Partner
+                Book a Consultation
                 <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </Link>
             </div>
@@ -268,31 +281,20 @@ Open to collaborations, new projects, and long-term partnerships`;
         </div>
       </div>
 
-      {/* Education & Credentials Section */}
-      <div className="mb-24 grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Education Column */}
-        <div>
-          <h3 className="text-subheading mb-6 text-white border-l-4 border-neon-cyan pl-6">Education</h3>
-          <div className="space-y-6">
-            <div className="bg-cosmic-900/50 border border-white/5 rounded-2xl p-6 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-bl-full group-hover:bg-neon-cyan/10 transition-colors"></div>
-              <div className="text-neon-cyan text-small font-mono mb-2">2022</div>
-              <h4 className="text-card-title text-white">M.Ed. Educational Technology</h4>
-              <p className="text-body text-slate-400">National Open University of Nigeria</p>
-            </div>
-            <div className="bg-cosmic-900/50 border border-white/5 rounded-2xl p-6 relative overflow-hidden group">
-               <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-bl-full group-hover:bg-neon-cyan/10 transition-colors"></div>
-              <div className="text-neon-cyan text-small font-mono mb-2">2015</div>
-              <h4 className="text-card-title text-white">B.Sc. (Ed.) Statistics/Computer Science</h4>
-              <p className="text-body text-slate-400">Federal University of Agriculture, Makurdi</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Credentials / Badges Column */}
-        <div>
-          <h3 className="text-subheading mb-6 text-white border-l-4 border-neon-ember pl-6">Professional Certifications</h3>
-          <div className="grid grid-cols-1 gap-4">
+      {/* Skills & Tools Section */}
+      <div className="mb-24">
+         <h3 className="text-subheading mb-10">Technical Expertise</h3>
+         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {renderSkillColumn('Design & Instruction', 'Design', 'text-neon-cyan')}
+            {renderSkillColumn('Tech Stack', 'Tech', 'text-neon-cyan')}
+            {renderSkillColumn('Analytics & Evaluation', 'Analytics', 'text-neon-ember')}
+         </div>
+      </div>
+      
+      {/* Credentials */}
+      <div className="mb-20">
+          <h3 className="text-subheading mb-6 border-l-4 border-neon-ember pl-6">Professional Certifications</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {credentials.map((cred) => (
               <a 
                 key={cred.id} 
@@ -305,11 +307,9 @@ Open to collaborations, new projects, and long-term partnerships`;
                     : 'bg-cosmic-900 border-white/5 hover:border-neon-cyan/30 hover:bg-white/5'
                   }`}
               >
-                {/* Badge Image Area */}
                 <div className="w-12 h-12 flex-shrink-0 bg-white rounded-lg p-2 flex items-center justify-center shadow-lg">
                   <img src={cred.image} alt={cred.issuer} className="w-full h-full object-contain" />
                 </div>
-
                 <div className="flex-grow">
                   <h4 className="text-ui text-white group-hover:text-neon-cyan transition-colors">{cred.title}</h4>
                   <div className="flex items-center gap-2 text-small text-slate-400">
@@ -320,70 +320,9 @@ Open to collaborations, new projects, and long-term partnerships`;
                     </span>
                   </div>
                 </div>
-
-                {/* Arrow Icon */}
-                <div className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-slate-400">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                </div>
               </a>
             ))}
           </div>
-        </div>
-      </div>
-
-      {/* Skills & Tools Section */}
-      <div className="mb-24">
-         <h3 className="text-subheading mb-10">Skills & Tools</h3>
-         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {renderSkillColumn('Design & Instruction', 'Design', 'text-neon-cyan')}
-            {renderSkillColumn('Tech Stack', 'Tech', 'text-neon-cyan')}
-            {renderSkillColumn('Analytics & Evaluation', 'Analytics', 'text-neon-ember')}
-         </div>
-      </div>
-
-      {/* Edge & Metrics Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
-        <div>
-          <h3 className="text-subheading text-white mb-6">My Edge</h3>
-          <ul className="space-y-6">
-            {[
-              { title: "Real-time AI Nudges", desc: "Eliminating critical BPO errors before they happen." },
-              { title: "Offline-First EdTech", desc: "Syncs flawlessly when 2G connectivity returns." },
-              { title: "Zero-Error Pipelines", desc: "Gemini + Claude + Local LLMs for content generation." },
-              { title: "Resilient Builds", desc: "LearnDash/Moodle architectures for unreliable internet." }
-            ].map((item, i) => (
-              <li key={i} className="flex gap-4 items-start group">
-                <span className="mt-1.5 w-1.5 h-1.5 bg-neon-cyan rounded-full shadow-[0_0_8px_#00d4ff] group-hover:scale-150 transition-transform"></span>
-                <div>
-                  <h4 className="text-ui text-white">{item.title}</h4>
-                  <p className="text-small text-slate-400 mt-1">{item.desc}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="text-subheading text-white mb-6">Impact Metrics</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-cosmic-900 border border-white/5 p-6 rounded-2xl">
-              <div className="text-subheading font-bold text-neon-cyan mb-1">18%</div>
-              <div className="text-small text-slate-400">CSAT Lift</div>
-            </div>
-            <div className="bg-cosmic-900 border border-white/5 p-6 rounded-2xl">
-              <div className="text-subheading font-bold text-neon-cyan mb-1">-33%</div>
-              <div className="text-small text-slate-400">Onboarding Time</div>
-            </div>
-            <div className="bg-cosmic-900 border border-white/5 p-6 rounded-2xl">
-              <div className="text-subheading font-bold text-white mb-1">1k+</div>
-              <div className="text-small text-slate-400">Agents Trained</div>
-            </div>
-            <div className="bg-cosmic-900 border border-white/5 p-6 rounded-2xl">
-              <div className="text-subheading font-bold text-neon-ember mb-1">500+</div>
-              <div className="text-small text-slate-400">AI Modules</div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

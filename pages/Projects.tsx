@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../services/supabase';
 import { Project } from '../types';
 import ProjectCard from '../components/ProjectCard';
+import SEO from '../components/SEO';
 
 const FALLBACK_PROJECTS: Project[] = [
   {
@@ -12,7 +13,7 @@ const FALLBACK_PROJECTS: Project[] = [
       live_url: 'https://accentta.com',
       github_url: 'https://github.com/sgukobong/accentta_v3',
       case_study_url: 'https://medium.com/@saviour/building-offline-ai-for-africa',
-      image_url: 'https://images.unsplash.com/photo-1655720357761-f18ea9e5e7e6?q=80&w=800&auto=format&fit=crop',
+      image_url: '/images/projects/accentta.jpg',
       created_at: new Date().toISOString()
   },
   {
@@ -20,10 +21,10 @@ const FALLBACK_PROJECTS: Project[] = [
       title: 'Collaboo — Team OS',
       description: 'A Notion + WhatsApp + Trello hybrid built for African teams with unstable internet. Offline-first tasks, chat, docs, and workflows.',
       tags: ['React', 'Supabase', 'Offline Sync'],
-      live_url: 'https://collaboo.app',
+      live_url: '', // In Dev
       github_url: 'https://github.com/saviou/collaboo',
       case_study_url: 'https://medium.com/@saviour/collaboo-case-study',
-      image_url: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop',
+      image_url: '/images/projects/collaboo.jpg',
       created_at: new Date().toISOString()
   },
   {
@@ -31,9 +32,9 @@ const FALLBACK_PROJECTS: Project[] = [
       title: 'Stridu — School OS',
       description: 'An LMS + school OS designed for low-cost deployment. Works with SMS for parents and costs $1.50/student/term.',
       tags: ['Flutter', 'Supabase', 'SMS'],
-      live_url: 'https://stridu.app',
+      live_url: '', // In Dev
       github_url: 'https://github.com/saviou/stridu',
-      image_url: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800&auto=format&fit=crop',
+      image_url: '/images/projects/stridu.jpg',
       created_at: new Date().toISOString()
   },
   {
@@ -44,17 +45,17 @@ const FALLBACK_PROJECTS: Project[] = [
       live_url: '', // Private
       github_url: '', // Private
       case_study_url: 'https://medium.com/@saviour/ai-nudges-in-bpo',
-      image_url: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop',
+      image_url: '/images/projects/qa-agent.jpg',
       created_at: new Date().toISOString()
   },
   {
       id: '5',
-      title: 'LeasePals MVP',
-      description: 'AI-assisted rental platform MVP with Flutterwave integration and smart document generation for agents & landlords.',
-      tags: ['Next.js', 'AI Design', 'Payments'],
-      live_url: 'https://rentpals.app',
-      github_url: 'https://github.com/saviou/rentpals',
-      image_url: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800&auto=format&fit=crop',
+      title: 'Lamp — The Free School for Africa',
+      description: 'Offline-first learning app for African students. Audio-based, low-resource optimized.',
+      tags: ['Offline-First', 'Audio', 'Education'],
+      live_url: '', // In Dev
+      github_url: '', 
+      image_url: '/images/projects/lamp.jpg',
       created_at: new Date().toISOString()
   }
 ];
@@ -95,6 +96,12 @@ const Projects: React.FC = () => {
 
   return (
     <div>
+      <SEO 
+        title="Selected Work & Case Studies"
+        description="Explore a portfolio of offline-first apps, AI coaching tools, and LMS platforms built for constrained network environments in Africa."
+        keywords={['Portfolio', 'Case Studies', 'AI Apps', 'Offline-First Projects', 'EdTech Portfolio']}
+      />
+
       <div className="mb-20">
         <h2 className="text-[clamp(40px,5vw,60px)] font-bold tracking-tight mb-4">Selected Work</h2>
         <p className="text-slate-400 text-xl max-w-2xl">

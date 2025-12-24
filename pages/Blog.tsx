@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../services/supabase';
 import { BlogPost } from '../types';
+import SEO from '../components/SEO';
 
 const FALLBACK_POSTS: BlogPost[] = [
   {
@@ -48,6 +49,12 @@ const Blog: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
+       <SEO 
+         title="Digital Garden"
+         description="Notes, tutorials, and long-form thoughts on building resilient software in Africa. A digital garden of evolving ideas."
+         keywords={['Digital Garden', 'Tech Blog', 'Software Tutorials', 'Building in Public']}
+       />
+
        <div className="mb-20">
          <h2 className="text-[clamp(40px,5vw,60px)] font-bold tracking-tight mb-4">Digital Garden</h2>
          <p className="text-slate-400 text-xl max-w-2xl">

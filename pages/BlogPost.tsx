@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../services/supabase';
 import { BlogPost } from '../types';
 import Markdown from 'react-markdown';
+import SEO from '../components/SEO';
 
 const FALLBACK_POST: BlogPost = {
   id: 'demo-1',
@@ -11,7 +12,7 @@ const FALLBACK_POST: BlogPost = {
   excerpt: 'This is a sample post acting as a placeholder.',
   content: `# Welcome to the Digital Garden\n\nThis is a sample post. If you are seeing this, it means the app couldn't fetch data from Supabase (likely because the 'posts' table doesn't exist yet).\n\n### How to fix\n1. Go to your Supabase Dashboard.\n2. Open the SQL Editor.\n3. Run the contents of \`supabase_setup.sql\` included in this project.\n\nThis will create the necessary tables for the blog to function dynamically.`,
   published_at: new Date().toISOString(),
-  cover_image: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=800&auto=format&fit=crop'
+  cover_image: '/images/blog/digital-garden.jpg'
 };
 
 const BlogPostPage: React.FC = () => {
@@ -48,6 +49,7 @@ const BlogPostPage: React.FC = () => {
 
   if (!post) return (
       <div className="mt-20 text-center">
+          <SEO title="Entry Not Found" description="The blog post you are looking for does not exist." />
           <h2 className="text-2xl font-bold mb-4">Entry Not Found</h2>
           <Link to="/blog" className="text-neon-cyan underline">Return to Garden</Link>
       </div>
@@ -55,6 +57,13 @@ const BlogPostPage: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto pt-10 pb-20">
+      <SEO 
+        title={post.title}
+        description={post.excerpt}
+        image={post.cover_image}
+        type="article"
+      />
+
       <Link to="/blog" className="inline-flex items-center gap-2 text-slate-500 hover:text-white mb-8 transition-colors">
          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
          Back to Garden

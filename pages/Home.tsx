@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const Home: React.FC = () => {
   const shape1Ref = useRef<HTMLDivElement>(null);
@@ -23,62 +24,82 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-[85vh] flex flex-col justify-center relative overflow-hidden">
+    <div className="min-h-[85vh] flex flex-col justify-center py-20 md:py-0 relative overflow-hidden">
+      <SEO 
+        title="AI Developer & Offline-First Engineer"
+        description="Saviour Ukobong is an AI developer and EdTech engineer in Nigeria specializing in offline-first mobile apps, Moodle systems, and 2G-friendly technology solutions for Africa."
+        keywords={['AI developer Nigeria', 'Offline-first engineer', 'EdTech Africa', 'Moodle Developer', 'Gemini AI', 'React', 'Supabase']}
+      />
       
       {/* Background Ambience - Parallax */}
       <div 
         ref={shape1Ref}
-        className="absolute top-0 right-0 w-[500px] h-[500px] bg-neon-cyan/10 rounded-full blur-[120px] pointer-events-none -z-10 will-change-transform"
+        className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-neon-cyan/10 rounded-full blur-[120px] pointer-events-none -z-10 will-change-transform opacity-50"
       ></div>
       <div 
         ref={shape2Ref}
-        className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-neon-cyan/5 rounded-full blur-[100px] pointer-events-none -z-10 will-change-transform"
+        className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-neon-ember/5 rounded-full blur-[100px] pointer-events-none -z-10 will-change-transform opacity-30"
       ></div>
 
-      <div className="space-y-8 max-w-5xl relative z-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neon-cyan/20 bg-neon-cyan/5 text-neon-cyan text-small font-medium mb-4 animate-float">
-          <span className="w-2 h-2 bg-neon-cyan rounded-full animate-pulse"></span>
-          Available for long-term & short-term projects
+      <div className="max-w-4xl relative z-10 px-2 md:px-0">
+        
+        {/* Status Badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neon-cyan/20 bg-neon-cyan/5 text-neon-cyan text-xs md:text-sm font-medium mb-10 animate-float backdrop-blur-sm">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-cyan opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-neon-cyan"></span>
+          </span>
+          Available for AI & EdTech Projects
         </div>
 
-        <h1 className="text-5xl md:text-7xl lg:text-hero font-medium tracking-tighter leading-[1.05]">
-          <span className="block text-white">I'm Saviour.</span>
-          <span className="text-slate-500">I create tools that make life easier for Africans</span>
-          <span className="block text-gradient-cyan text-3xl md:text-5xl lg:text-6xl mt-2 leading-tight py-1">
-            — even in places with poor network and unreliable electricity.
-          </span>
+        {/* Headline */}
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white mb-8">
+          Hi, I’m <br className="hidden md:block" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-slate-400">Saviour.</span>
         </h1>
 
-        <p className="text-body text-slate-400 max-w-2xl mt-4">
-          Learning platforms, work tools, and simple apps <span className="text-white">anyone can use, anytime.</span>
+        {/* Subheadline */}
+        <h2 className="text-2xl md:text-4xl lg:text-[42px] font-medium text-slate-200 leading-[1.2] tracking-tight mb-8">
+          I create tools that make life easier for Africans — <span className="text-slate-500">even with poor network and unreliable electricity.</span>
+        </h2>
+
+        {/* Supporting Paragraph */}
+        <p className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-12">
+          From offline-first learning platforms to AI coaching tools and everyday apps, I build software that keeps working when the lights go out.
         </p>
 
-        <div className="flex flex-wrap gap-6 mt-12">
+        {/* CTAs */}
+        <div className="flex flex-wrap gap-5 items-center">
           <Link 
             to="/projects"
-            className="group relative px-8 py-4 bg-white text-black text-ui rounded-2xl hover:bg-neon-cyan transition-colors shadow-[0_0_30px_rgba(0,234,255,0.2)]"
+            className="group relative px-8 py-4 bg-white text-black font-semibold text-lg rounded-full hover:bg-neon-cyan transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] flex items-center gap-2"
           >
-            Explore My Work
-            <span className="absolute inset-0 rounded-2xl ring-2 ring-white/20 group-hover:ring-neon-cyan/50 transition-all"></span>
+            See Projects
+            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
           </Link>
           <Link 
-            to="/about"
-            className="px-8 py-4 bg-transparent border border-white/20 text-white text-ui rounded-2xl hover:border-neon-cyan hover:text-neon-cyan transition-all"
+            to="/contact"
+            className="group px-8 py-4 bg-transparent border border-white/10 text-white font-semibold text-lg rounded-full hover:border-white/30 hover:bg-white/5 transition-all duration-300 flex items-center gap-3"
           >
-            Learn More About My Journey
+            Let’s Talk
+            <span className="w-2 h-2 rounded-full bg-neon-ember group-hover:animate-pulse"></span>
           </Link>
         </div>
       </div>
 
       {/* Tech Stack Strip */}
-      <div className="mt-32 border-t border-white/5 pt-8 flex flex-wrap gap-12 items-center text-slate-500 font-mono text-small uppercase tracking-widest relative z-10">
-        <span>Next.js 14</span>
-        <span>Supabase</span>
-        <span>Gemini AI</span>
-        <span>Offline-First</span>
-        <span>LearnDash</span>
-        <span>Moodle</span>
+      <div className="mt-32 border-t border-white/5 pt-10">
+        <p className="text-xs font-mono text-slate-600 uppercase tracking-widest mb-6">Powering Resilient Systems With</p>
+        <div className="flex flex-wrap gap-x-12 gap-y-4 items-center text-slate-500 font-mono text-sm uppercase tracking-wider opacity-70">
+          <span className="hover:text-neon-cyan transition-colors cursor-default">Next.js 14</span>
+          <span className="hover:text-neon-cyan transition-colors cursor-default">Supabase</span>
+          <span className="hover:text-neon-cyan transition-colors cursor-default">Gemini AI</span>
+          <span className="hover:text-neon-cyan transition-colors cursor-default">Offline-First PWA</span>
+          <span className="hover:text-neon-cyan transition-colors cursor-default">Moodle</span>
+          <span className="hover:text-neon-cyan transition-colors cursor-default">Edge Computing</span>
+        </div>
       </div>
+      
     </div>
   );
 };

@@ -1,5 +1,7 @@
 {
   "name": "Saviour.dev",
   "description": "Creating tools that make life easier for Africans. Learning platforms, work tools, and offline-first apps for unreliable networks.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [
+    "microphone"
+  ]
 }

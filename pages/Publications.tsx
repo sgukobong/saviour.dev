@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../services/supabase';
 import { ExternalPost } from '../types';
 import PostCard from '../components/PostCard';
+import SEO from '../components/SEO';
 
 const FALLBACK_POSTS: ExternalPost[] = [
   {
@@ -10,7 +11,7 @@ const FALLBACK_POSTS: ExternalPost[] = [
     url: 'https://medium.com/@saviour',
     title: 'Designing for the Next Billion Users: Why Offline-First Matters',
     subtitle: 'How 2G optimization and local-first architecture are solving the education crisis in rural Africa.',
-    thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop',
+    thumbnail: '/images/blog/offline-first.jpg',
     published_at: new Date().toISOString(),
     metadata_status: 'processed',
     created_at: new Date().toISOString(),
@@ -21,7 +22,7 @@ const FALLBACK_POSTS: ExternalPost[] = [
     url: 'https://linkedin.com/in/saviour',
     title: 'The Future of AI is Hybrid: Local LLMs on Mobile Devices',
     subtitle: 'Reducing latency and server costs by running inference on-device for education apps.',
-    thumbnail: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=800&auto=format&fit=crop',
+    thumbnail: '/images/blog/local-llm.jpg',
     published_at: new Date(Date.now() - 86400000 * 5).toISOString(),
     metadata_status: 'processed',
     created_at: new Date().toISOString(),
@@ -32,7 +33,7 @@ const FALLBACK_POSTS: ExternalPost[] = [
     url: 'https://dev.to/saviour',
     title: 'Building Resilient React Apps with Supabase and Netlify',
     subtitle: 'A technical deep dive into syncing data when the network is flaky.',
-    thumbnail: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=800&auto=format&fit=crop',
+    thumbnail: '/images/blog/react-supabase.jpg',
     published_at: new Date(Date.now() - 86400000 * 12).toISOString(),
     metadata_status: 'processed',
     created_at: new Date().toISOString(),
@@ -73,6 +74,12 @@ const Publications: React.FC = () => {
 
   return (
     <div>
+      <SEO 
+        title="Writing & Publications"
+        description="Articles, thoughts, and technical deep-dives on software engineering, 2G optimization, and the future of EdTech in emerging markets."
+        keywords={['Tech Blog', 'EdTech Articles', 'Software Engineering', 'Africa Tech', 'Offline-First Articles']}
+      />
+
       <div className="mb-20">
         <h2 className="text-[clamp(40px,5vw,60px)] font-bold tracking-tight mb-4">Posts & Insights</h2>
         <p className="text-slate-400 text-xl max-w-2xl">

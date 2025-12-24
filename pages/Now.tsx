@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SEO from '../components/SEO';
 
 const Now: React.FC = () => {
   const content = `I’m currently building a Free School for Africa—a learning platform created to give every child, regardless of background or circumstance, access to quality education at zero cost.
@@ -16,6 +17,12 @@ Africa deserves the future—and we’re building it.`;
 
   return (
     <div className="max-w-3xl mx-auto pt-10">
+      <SEO 
+        title="What I'm Doing Now"
+        description="Current focus: Building a free school for Africa, advancing offline-first AI technology, and consulting for EdTech startups."
+        keywords={['Now Page', 'Current Projects', 'Free School Africa', 'Offline First Education']}
+      />
+
       <div className="flex items-center gap-4 mb-8">
         <span className="w-3 h-3 bg-neon-ember rounded-full animate-pulse-slow"></span>
         <h2 className="text-sm font-mono tracking-widest uppercase text-neon-ember">Right Now ({new Date().toLocaleString('default', { month: 'long', year: 'numeric' })})</h2>

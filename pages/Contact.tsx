@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from '../services/supabase';
+import SEO from '../components/SEO';
 
 const Contact: React.FC = () => {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
@@ -26,6 +27,11 @@ const Contact: React.FC = () => {
 
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center gap-12">
+      <SEO 
+        title="Contact & Consultation"
+        description="Book a consultation with Saviour Ukobong for AI development, EdTech strategy, and offline-first engineering projects."
+        keywords={['Contact Developer', 'Hire AI Engineer', 'EdTech Consultation', 'Software Consultant Nigeria']}
+      />
       
       {/* Contact Form Section */}
       <div className="relative w-full max-w-xl">
@@ -144,35 +150,39 @@ const Contact: React.FC = () => {
          </div>
 
          <div className="bg-cosmic-900/50 border border-white/5 rounded-2xl p-6 flex flex-col gap-4 justify-center">
-            <h3 className="text-sm font-mono text-slate-400 uppercase tracking-widest mb-2">Services & Collaboration</h3>
+            <h3 className="text-sm font-mono text-slate-400 uppercase tracking-widest mb-2">What I Help You Build</h3>
             <ul className="text-base text-slate-300 space-y-4">
                <li className="flex items-center gap-3 justify-center md:justify-start">
                   <span className="w-2 h-2 bg-neon-cyan rounded-full shadow-[0_0_8px_#00eaff]"></span> 
-                  EdTech Consulting
+                  Engaging learning experiences
                </li>
                <li className="flex items-center gap-3 justify-center md:justify-start">
                   <span className="w-2 h-2 bg-neon-cyan rounded-full shadow-[0_0_8px_#00eaff]"></span> 
-                  LMS Deployments (Moodle/OpenEDX)
+                  Practical EdTech strategy for real-world schools & orgs
                </li>
                <li className="flex items-center gap-3 justify-center md:justify-start">
                   <span className="w-2 h-2 bg-neon-cyan rounded-full shadow-[0_0_8px_#00eaff]"></span> 
-                  AI Training Tools
+                  LMS setups that simply work (Moodle / OpenEDX)
                </li>
                <li className="flex items-center gap-3 justify-center md:justify-start">
                   <span className="w-2 h-2 bg-neon-cyan rounded-full shadow-[0_0_8px_#00eaff]"></span> 
-                  AI Apps
+                  AI tutors, training tools & chat assistants
                </li>
                <li className="flex items-center gap-3 justify-center md:justify-start">
                   <span className="w-2 h-2 bg-neon-cyan rounded-full shadow-[0_0_8px_#00eaff]"></span> 
-                  Web & Mobile App Dev.
+                  Smart AI-powered apps
                </li>
                <li className="flex items-center gap-3 justify-center md:justify-start">
                   <span className="w-2 h-2 bg-neon-cyan rounded-full shadow-[0_0_8px_#00eaff]"></span> 
-                  Speaking Engagements
+                  Fast, reliable web & mobile apps
                </li>
                <li className="flex items-center gap-3 justify-center md:justify-start">
                   <span className="w-2 h-2 bg-neon-cyan rounded-full shadow-[0_0_8px_#00eaff]"></span> 
-                  ... and more
+                  Talks & hands-on workshops
+               </li>
+               <li className="flex items-center gap-3 justify-center md:justify-start">
+                  <span className="w-2 h-2 bg-neon-cyan rounded-full shadow-[0_0_8px_#00eaff]"></span> 
+                  Tailored solutions for unique problems
                </li>
             </ul>
          </div>
