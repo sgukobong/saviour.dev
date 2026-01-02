@@ -3,155 +3,67 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0c0c0c" />
+    <meta name="theme-color" content="#ffffff" />
     
     <!-- Primary Meta Tags -->
     <title>Saviour Ukobong — AI Developer & Offline-First Engineer in Nigeria</title>
     <meta name="title" content="Saviour Ukobong — AI Developer & Offline-First Engineer in Nigeria">
     <meta name="description" content="Saviour Ukobong is an AI developer and EdTech engineer in Nigeria specializing in offline-first mobile apps, Moodle systems, and 2G-friendly technology solutions for Africa.">
-    <meta name="keywords" content="AI developer in Nigeria, African EdTech engineer, Offline-first mobile apps Nigeria, Learning system developer Africa, AI coaching tools, Moodle developer Nigeria, EdTech consultant Africa, 2G-friendly technology solutions">
-    <meta name="author" content="Saviour Ukobong">
     
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://saviour.dev/">
-    <meta property="og:title" content="Saviour Ukobong — AI Developer & Offline-First Engineer in Nigeria">
-    <meta property="og:description" content="Building resilient software for Africa. Offline-first apps, AI coaching tools, and EdTech infrastructure that works on 2G networks.">
-    <meta property="og:image" content="/images/og-image.jpg">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://saviour.dev/">
-    <meta property="twitter:title" content="Saviour Ukobong — AI Developer & Offline-First Engineer in Nigeria">
-    <meta property="twitter:description" content="Building resilient software for Africa. Offline-first apps, AI coaching tools, and EdTech infrastructure that works on 2G networks.">
-    <meta property="twitter:image" content="/images/og-image.jpg">
-
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="canonical" href="https://saviour.dev/" />
-    
-    <!-- Tailwind CSS (CDN for simplicity) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://checkout.flutterwave.com/v3.js"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     
-    <!-- Schema.org Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Saviour Ukobong",
-      "jobTitle": "AI Developer & EdTech Consultant",
-      "url": "https://saviour.dev",
-      "image": "/images/profile.jpg",
-      "sameAs": [
-        "https://www.linkedin.com/in/sgukobong/",
-        "https://github.com/sgukobong",
-        "https://x.com/sgukobong",
-        "https://medium.com/@saviour"
-      ],
-      "description": "Saviour Ukobong is an AI developer in Nigeria building offline-first apps and EdTech solutions for Africa.",
-      "knowsAbout": ["Artificial Intelligence", "Offline-First Development", "EdTech", "Moodle", "React", "Supabase", "Generative AI"],
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "National Open University of Nigeria"
-      }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Saviour Ukobong Consulting",
-      "image": "/images/logo.png",
-      "url": "https://saviour.dev",
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Abuja",
-        "addressCountry": "NG"
-      },
-      "description": "EdTech consulting, AI application development, and LMS deployment services for African organizations."
-    }
-    </script>
-
     <style>
       :root {
-        /* Primary Core */
-        --bg-0: #0c0c0c;
-        --bg-1: #171717;
-        --bg-2: #262626;
-
-        /* Text */
-        --text-main: #fafafa; /* gray-50 */
-        --text-secondary: #a3a3a3; /* gray-400 */
-
-        /* Accents */
-        --accent-cyan: #00d4ff;
-        --accent-gold: #ffcb47;
-        --accent-ember: #ff6b3d;
-
-        /* Glass & Utility */
-        --glass-light: rgba(255,255,255,0.03);
-        --glass-border: rgba(255,255,255,0.08);
+        --bg-0: #fcfcfc;
+        --bg-1: #ffffff;
+        --text-main: #000000;
+        --text-secondary: #333333;
+        --accent-cyan: #000000;
       }
 
       body {
         background-color: var(--bg-0);
-        background-image: linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 100%);
         color: var(--text-main);
-        
-        /* Apple-grade Font Smoothing */
-        font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Google Sans", "Inter", system-ui, sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
         -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-rendering: optimizeLegibility;
-        
-        min-height: 100vh;
-        overflow-x: hidden;
       }
 
-      /* Smooth Scrolling */
-      html {
-        scroll-behavior: smooth;
+      .font-serif {
+        font-family: 'Instrument Serif', serif;
+      }
+
+      .text-hero { font-size: clamp(6rem, 18vw, 15rem); line-height: 0.8; letter-spacing: -0.06em; font-weight: 500; }
+      .text-section-title { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
+      
+      .glass-card {
+        background: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+      }
+
+      .vertical-text {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+      }
+
+      .service-card {
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 30px 60px -12px rgba(0,0,0,0.12);
       }
 
       /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 6px;
-      }
-      ::-webkit-scrollbar-track {
-        background: var(--bg-0);
-      }
-      ::-webkit-scrollbar-thumb {
-        background: var(--bg-2);
-        border-radius: 3px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: var(--accent-cyan);
-      }
-
-      /* Utilities */
-      .glass-panel {
-        background: var(--glass-light);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid var(--glass-border);
-      }
-      
-      .text-gradient-cyan {
-        background: linear-gradient(to right, #fff, var(--accent-cyan));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .text-gradient-gold {
-        background: linear-gradient(to right, #fff, var(--accent-gold));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
+      ::-webkit-scrollbar { width: 5px; }
+      ::-webkit-scrollbar-track { background: var(--bg-0); }
+      ::-webkit-scrollbar-thumb { background: #000; border-radius: 10px; }
     </style>
     <script>
       tailwind.config = {
@@ -159,49 +71,13 @@
           extend: {
             colors: {
               cosmic: {
-                950: '#0c0c0c',
-                900: '#171717',
-                800: '#262626',
+                950: '#fcfcfc',
+                900: '#ffffff',
+                800: '#e0e0e0',
               },
               neon: {
-                cyan: '#00d4ff',
-                gold: '#ffcb47',
-                ember: '#ff6b3d',
-              },
-              slate: {
-                400: '#a3a3a3',
-                500: '#737373',
-              }
-            },
-            fontFamily: {
-              sans: [
-                '"SF Pro Display"',
-                '"SF Pro Text"',
-                '-apple-system',
-                'BlinkMacSystemFont',
-                '"Google Sans"',
-                '"Inter"',
-                'system-ui',
-                'sans-serif'
-              ],
-            },
-            fontSize: {
-              'hero': ['88px', { lineHeight: '1.1', fontWeight: '500', letterSpacing: '-0.02em' }],
-              'section': ['48px', { lineHeight: '1.2', fontWeight: '500', letterSpacing: '-0.01em' }],
-              'subheading': ['32px', { lineHeight: '1.3', fontWeight: '500', letterSpacing: '-0.01em' }],
-              'card-title': ['20px', { lineHeight: '1.4', fontWeight: '600', letterSpacing: '0em' }],
-              'body': ['18px', { lineHeight: '1.6', fontWeight: '400', letterSpacing: '0em' }],
-              'ui': ['16px', { lineHeight: '1.5', fontWeight: '600', letterSpacing: '0em' }],
-              'small': ['14px', { lineHeight: '1.5', fontWeight: '400', letterSpacing: '0em' }],
-            },
-            animation: {
-              'float': 'float 6s ease-in-out infinite',
-              'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            },
-            keyframes: {
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-10px)' },
+                cyan: '#000000',
+                ember: '#d9481b',
               }
             }
           }
@@ -211,17 +87,18 @@
   <script type="importmap">
 {
   "imports": {
-    "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
     "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3",
-    "react-markdown": "https://esm.sh/react-markdown@^10.1.0",
-    "vite": "https://esm.sh/vite@^7.2.7",
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.10.1",
+    "vite": "https://esm.sh/vite@^7.3.0",
+    "jspdf": "https://esm.sh/jspdf@^3.0.4",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@^2.89.0",
     "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "@netlify/functions": "https://esm.sh/@netlify/functions@^5.1.1",
-    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@^2.87.1",
-    "jspdf": "https://esm.sh/jspdf@^3.0.4"
+    "react-markdown": "https://esm.sh/react-markdown@^10.1.0",
+    "@netlify/functions": "https://esm.sh/@netlify/functions@^5.1.2",
+    "lucide-react": "https://esm.sh/lucide-react@^0.475.0"
   }
 }
 </script>

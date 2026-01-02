@@ -5,7 +5,7 @@ import { PaymentRecord } from '../types';
 import { initiatePayment } from '../services/flutterwave';
 import SEO from '../components/SEO';
 import jsPDF from 'jspdf';
-import PayPalButton from '../components/PayPalButton';
+import { Coffee, Video, FileText, Search, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 const MOCK_DATA: PaymentRecord[] = [
   {
@@ -43,7 +43,7 @@ const ClientPortal: React.FC = () => {
   const symbol = currency === 'USD' ? '$' : '₦';
 
   useEffect(() => {
-    // Reset coffee amount when currency changes to the first option
+    // Reset coffee amount when currency changes
     setCoffeeAmount(coffeeOptions[0]);
   }, [currency]);
 
@@ -56,7 +56,7 @@ const ClientPortal: React.FC = () => {
     } else if (emailParam) {
       performLookup('email', emailParam, true);
     } else {
-      setShowLookupManual(true);
+      setShowLookupManual(false); // Default to showing services
     }
   }, [searchParams]);
 
@@ -90,8 +90,6 @@ const ClientPortal: React.FC = () => {
       if (!data || data.length === 0) {
         setError(type === 'invoice' ? "We couldn't find that invoice number." : "No invoices found for this email address.");
         setShowLookupManual(true);
-      } else {
-        if (isAuto) setShowLookupManual(false);
       }
     } catch (err: any) {
       console.error(err);
@@ -109,7 +107,6 @@ const ClientPortal: React.FC = () => {
 
   const handleQuickPay = (type: 'consultation' | 'coffee', amount: number) => {
     if (currency === 'USD') {
-      // Redirect to PayPal for USD Quick Pay to avoid Flutterwave NGN conversion confusion
       const desc = type === 'consultation' ? '60-Min Strategy Consultation' : 'Support for Saviour.dev';
       window.open(`https://paypal.me/sgukobong/${amount}USD`, '_blank');
       return;
@@ -144,7 +141,7 @@ const ClientPortal: React.FC = () => {
 
   const downloadInvoice = (invoice: PaymentRecord) => {
     const doc = new jsPDF();
-    doc.setFillColor(12, 12, 12);
+    doc.setFillColor(0, 0, 0);
     doc.rect(0, 0, 210, 40, 'F');
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(22);
@@ -175,231 +172,260 @@ const ClientPortal: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto pt-10 px-4 pb-20">
       <SEO 
-        title="Client Portal"
-        description="View invoices, book consultations, or support Saviour's work."
+        title="Services & Client Portal"
+        description="Book a consultation, support my work, or manage your invoices directly through the portal."
       />
 
-      <div className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-          {invoices.length > 0 ? 'Review & Pay' : 'Client Payments'}
-        </h1>
-        <p className="text-slate-400 text-lg max-w-xl mx-auto">
-          {invoices.length > 0 
-            ? 'Verify the details below to complete your payment.' 
-            : 'Find your invoice or choose a quick service below.'}
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
-        {/* Left Pane: Invoice Lookup / Results */}
-        <div className="lg:col-span-7 space-y-8">
-          
-          {isSearching && invoices.length === 0 && (
-            <div className="bg-cosmic-900 border border-white/5 p-12 rounded-[2.5rem] animate-pulse">
-              <div className="h-8 bg-white/5 rounded-full w-48 mb-6"></div>
-              <div className="h-4 bg-white/5 rounded-full w-full mb-10"></div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="h-12 bg-white/5 rounded-xl"></div>
-                <div className="h-12 bg-white/5 rounded-xl"></div>
-              </div>
-            </div>
-          )}
-
-          {(showLookupManual || invoices.length === 0) && !isSearching && (
-            <div className="bg-cosmic-900/80 backdrop-blur-xl border border-white/10 p-8 rounded-[2.5rem] shadow-2xl animate-fade-in">
-              <h2 className="text-xs font-mono text-neon-cyan uppercase tracking-widest mb-6">Find Your Invoice</h2>
-              <div className="flex gap-4 mb-8 border-b border-white/5 pb-6">
-                <button 
-                  onClick={() => { setLookupType('invoice'); setLookupValue(''); setError(''); }}
-                  className={`px-4 py-2 rounded-full text-[10px] font-mono uppercase tracking-widest transition-all ${lookupType === 'invoice' ? 'bg-white text-black font-bold' : 'text-slate-500 hover:text-white'}`}
-                >
-                  Invoice #
-                </button>
-                <button 
-                  onClick={() => { setLookupType('email'); setLookupValue(''); setError(''); }}
-                  className={`px-4 py-2 rounded-full text-[10px] font-mono uppercase tracking-widest transition-all ${lookupType === 'email' ? 'bg-white text-black font-bold' : 'text-slate-500 hover:text-white'}`}
-                >
-                  Billing Email
-                </button>
-              </div>
-
-              <form onSubmit={handleManualSubmit} className="flex flex-col sm:flex-row gap-4">
-                <input 
-                  type={lookupType === 'email' ? 'email' : 'text'}
-                  required
-                  value={lookupValue}
-                  onChange={(e) => setLookupValue(e.target.value)}
-                  placeholder={lookupType === 'invoice' ? "INV-2025-XXX" : "you@company.com"}
-                  className="flex-grow bg-black/40 border border-white/10 rounded-2xl px-6 py-4 text-white focus:border-neon-cyan outline-none transition-all placeholder:text-slate-600"
-                />
-                <button 
-                  type="submit"
-                  className="h-14 px-8 bg-white text-black font-bold rounded-2xl hover:bg-neon-cyan transition-all shadow-lg whitespace-nowrap"
-                >
-                  Continue
-                </button>
-              </form>
-
-              {error && (
-                <div className="mt-6 p-4 bg-neon-ember/10 border border-neon-ember/20 text-neon-ember rounded-xl text-center text-sm">
-                  {error}
-                </div>
-              )}
-            </div>
-          )}
-
-          {invoices.length > 0 && (
-            <div className="space-y-6 animate-fade-in">
-              {invoices.map((inv) => (
-                <div key={inv.id} className="bg-cosmic-900 border border-white/10 p-8 rounded-[2.5rem] relative overflow-hidden group">
-                  <div className="flex flex-col gap-6">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${inv.status === 'paid' ? 'bg-green-500/10 text-green-500' : 'bg-yellow-500/10 text-yellow-500'}`}>
-                          {inv.status}
-                        </span>
-                        <h2 className="text-2xl font-bold text-white mt-3">{inv.service_name}</h2>
-                        <p className="text-slate-400 text-sm mt-1">{inv.description}</p>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-3xl font-bold text-white">{inv.currency === 'USD' ? '$' : '₦'} {inv.amount.toLocaleString()}</div>
-                        <div className="text-[10px] font-mono text-slate-500 uppercase mt-1">Invoice {inv.invoice_number}</div>
-                      </div>
-                    </div>
-                    
-                    <div className="flex flex-col sm:flex-row gap-4 mt-4">
-                      {inv.status === 'pending' ? (
-                        <>
-                           <button 
-                            onClick={() => handleQuickPay('consultation', inv.amount)} // Placeholder logic
-                            className="flex-grow bg-white text-black font-bold py-4 rounded-xl hover:bg-neon-cyan transition-all flex items-center justify-center gap-2"
-                          >
-                            Checkout (Card)
-                          </button>
-                          {inv.currency === 'USD' && (
-                            <a 
-                              href={`https://paypal.me/sgukobong/${inv.amount}USD`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex-grow py-4 border border-[#003087] text-[#003087] font-bold rounded-xl hover:bg-[#003087] hover:text-white transition-all text-center flex items-center justify-center"
-                            >
-                              PayPal
-                            </a>
-                          )}
-                        </>
-                      ) : (
-                        <div className="flex-grow p-4 bg-green-500/5 border border-green-500/20 rounded-xl text-center text-green-500 font-bold">
-                          Payment Confirmed
-                        </div>
-                      )}
-                      <button 
-                        onClick={() => downloadInvoice(inv)}
-                        className="px-6 py-4 bg-white/5 border border-white/10 rounded-xl text-slate-400 hover:text-white transition-all flex items-center justify-center gap-2"
-                      >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        PDF
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              {!showLookupManual && (
-                <button onClick={() => setShowLookupManual(true)} className="text-[10px] font-mono uppercase tracking-widest text-slate-600 hover:text-white mx-auto block">
-                  Search for another record
-                </button>
-              )}
-            </div>
-          )}
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+        <div className="max-w-2xl">
+          <span className="text-[10px] font-mono uppercase tracking-[0.5em] text-slate-500 mb-6 block font-bold">● Client Services</span>
+          <h1 className="text-section-title leading-tight text-black">
+            {invoices.length > 0 ? 'Invoice Review' : 'Work With Me'}
+          </h1>
+          <p className="text-slate-800 text-xl font-medium mt-6 leading-relaxed">
+            Direct access to consulting, strategic advice, and administrative tools for ongoing projects.
+          </p>
         </div>
-
-        {/* Right Pane: Quick Payments & Support */}
-        <div className="lg:col-span-5 space-y-6">
-          
-          {/* Currency Toggle */}
-          <div className="bg-cosmic-900 border border-white/10 p-2 rounded-2xl flex items-center gap-1 shadow-inner">
+        
+        {/* Currency Switcher as a floating pill */}
+        <div className="bg-white border-2 border-black/5 p-1 rounded-full flex items-center shadow-sm">
              <button 
                onClick={() => setCurrency('USD')}
-               className={`flex-1 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${currency === 'USD' ? 'bg-white text-black' : 'text-slate-500 hover:text-white'}`}
+               className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${currency === 'USD' ? 'bg-black text-white' : 'text-slate-500 hover:text-black'}`}
              >
                USD ($)
              </button>
              <button 
                onClick={() => setCurrency('NGN')}
-               className={`flex-1 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${currency === 'NGN' ? 'bg-white text-black' : 'text-slate-500 hover:text-white'}`}
+               className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${currency === 'NGN' ? 'bg-black text-white' : 'text-slate-500 hover:text-black'}`}
              >
                NGN (₦)
              </button>
-          </div>
+        </div>
+      </div>
 
-          {/* Consultation Card */}
-          <div className="bg-cosmic-900 border border-white/10 p-8 rounded-[2.5rem] hover:border-neon-cyan/30 transition-all group">
-            <div className="w-12 h-12 bg-neon-cyan/10 rounded-2xl flex items-center justify-center mb-6 text-neon-cyan group-hover:scale-110 transition-transform">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
-            </div>
-            <h3 className="text-xl font-bold text-white mb-2">Book a Consultation</h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-6">
-              Need direct help with your EdTech strategy, App development, or AI integration? Book a 60-minute session.
-            </p>
-            <div className="flex items-end justify-between mb-6">
-               <div>
-                  <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-1">Standard Rate</div>
-                  <div className="text-3xl font-bold text-white">{symbol} {consultationRate.toLocaleString()}</div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        
+        {/* Main Workspace (Left) */}
+        <div className="lg:col-span-8 space-y-12">
+          
+          {/* Lookup Toggle if not currently showing search */}
+          {!showLookupManual && invoices.length === 0 && !isSearching && (
+            <div 
+              onClick={() => setShowLookupManual(true)}
+              className="group cursor-pointer p-8 rounded-[2rem] bg-slate-50 border-2 border-dashed border-black/10 flex items-center justify-between hover:border-black/20 hover:bg-slate-100/50 transition-all"
+            >
+               <div className="flex items-center gap-6">
+                  <div className="w-14 h-14 rounded-full bg-white flex items-center justify-center border border-black/5 shadow-sm">
+                     <Search className="w-6 h-6 text-black" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black text-black">Already working together?</h3>
+                    <p className="text-slate-700 font-medium">Search for your invoice or billing history.</p>
+                  </div>
                </div>
-               <button 
-                onClick={() => handleQuickPay('consultation', consultationRate)}
-                className="px-6 py-3 bg-white text-black font-bold rounded-xl hover:bg-neon-cyan transition-all text-sm"
-               >
-                Pay & Book
-               </button>
+               <ArrowRight className="w-6 h-6 text-slate-300 group-hover:text-black transition-colors" />
             </div>
-          </div>
+          )}
 
-          {/* Coffee / Support Card */}
-          <div className="bg-cosmic-900 border border-white/10 p-8 rounded-[2.5rem] hover:border-neon-ember/30 transition-all group">
-            <div className="w-12 h-12 bg-neon-ember/10 rounded-2xl flex items-center justify-center mb-6 text-neon-ember group-hover:scale-110 transition-transform">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16.707 5.293L13.414 2H10.586L7.293 5.293A1 1 0 007 6v10a2 2 0 002 2h6a2 2 0 002-2V6a1 1 0 00-.293-.707zM12 18V6" /></svg>
-            </div>
-            <h3 className="text-xl font-bold text-white mb-2">Support My Work</h3>
-            <p className="text-slate-400 text-sm leading-relaxed mb-6">
-              I spend hundreds of hours building tools like the <Link to="/now" className="text-neon-cyan hover:underline font-medium">Free School for Africa</Link>. Consider buying me a coffee to keep the servers running.
-            </p>
-            
-            <div className="grid grid-cols-3 gap-3 mb-6">
-              {coffeeOptions.map((amt) => (
-                <button 
-                  key={amt}
-                  onClick={() => setCoffeeAmount(amt)}
-                  className={`py-2 rounded-lg text-xs font-mono transition-all border ${coffeeAmount === amt ? 'bg-neon-ember border-neon-ember text-black font-bold' : 'bg-white/5 border-white/10 text-slate-400'}`}
-                >
-                  {symbol}{amt.toLocaleString()}
-                </button>
+          {/* Lookup Interface */}
+          {(showLookupManual || isSearching) && invoices.length === 0 && (
+             <div className="bg-white border border-black/10 p-10 rounded-[3rem] shadow-xl animate-fade-in">
+                <div className="flex justify-between items-center mb-10">
+                    <h2 className="text-sm font-mono text-black uppercase tracking-widest font-black flex items-center gap-2">
+                        <Search className="w-4 h-4" /> Invoice Search
+                    </h2>
+                    <button onClick={() => setShowLookupManual(false)} className="text-[10px] font-mono text-slate-400 hover:text-black uppercase tracking-widest font-bold">Close X</button>
+                </div>
+
+                <div className="flex gap-4 mb-10 bg-slate-50 p-1.5 rounded-2xl w-fit">
+                    <button 
+                        onClick={() => { setLookupType('invoice'); setLookupValue(''); setError(''); }}
+                        className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${lookupType === 'invoice' ? 'bg-white text-black shadow-sm' : 'text-slate-500 hover:text-black'}`}
+                    >
+                        By Invoice #
+                    </button>
+                    <button 
+                        onClick={() => { setLookupType('email'); setLookupValue(''); setError(''); }}
+                        className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${lookupType === 'email' ? 'bg-white text-black shadow-sm' : 'text-slate-500 hover:text-black'}`}
+                    >
+                        By Email
+                    </button>
+                </div>
+
+                <form onSubmit={handleManualSubmit} className="flex flex-col sm:flex-row gap-4">
+                    <input 
+                        type={lookupType === 'email' ? 'email' : 'text'}
+                        required
+                        value={lookupValue}
+                        onChange={(e) => setLookupValue(e.target.value)}
+                        placeholder={lookupType === 'invoice' ? "INV-2025-XXX" : "you@company.com"}
+                        className="flex-grow bg-slate-50 border-2 border-black/5 rounded-2xl px-8 py-5 text-black font-bold focus:border-black outline-none transition-all placeholder:text-slate-400"
+                    />
+                    <button 
+                        type="submit"
+                        disabled={isSearching}
+                        className="h-16 px-10 bg-black text-white font-black rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-xl whitespace-nowrap flex items-center justify-center gap-3 disabled:opacity-50"
+                    >
+                        {isSearching ? <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div> : 'Retrieve Record'}
+                    </button>
+                </form>
+
+                {error && (
+                    <div className="mt-8 p-5 bg-red-50 border border-red-100 text-red-600 rounded-2xl text-center text-sm font-bold animate-shake">
+                    {error}
+                    </div>
+                )}
+             </div>
+          )}
+
+          {/* Invoice Results */}
+          {invoices.length > 0 && (
+            <div className="space-y-8 animate-fade-in">
+              {invoices.map((inv) => (
+                <div key={inv.id} className="bg-white border-2 border-black/5 p-10 rounded-[3rem] shadow-lg relative group">
+                  <div className="flex flex-col gap-10">
+                    <div className="flex flex-col md:flex-row justify-between items-start gap-6">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-6">
+                            <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.1em] ${inv.status === 'paid' ? 'bg-green-100 text-green-700 border border-green-200' : 'bg-yellow-100 text-yellow-700 border border-yellow-200'}`}>
+                                {inv.status === 'paid' ? 'Settled' : 'Action Required'}
+                            </span>
+                            <span className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-widest">#{inv.invoice_number}</span>
+                        </div>
+                        <h2 className="text-3xl font-black text-black leading-tight">{inv.service_name}</h2>
+                        <p className="text-slate-700 text-lg mt-3 leading-relaxed font-medium">{inv.description}</p>
+                      </div>
+                      <div className="text-left md:text-right">
+                        <div className="text-4xl md:text-5xl font-black text-black tracking-tighter">{inv.currency === 'USD' ? '$' : '₦'}{inv.amount.toLocaleString()}</div>
+                        <div className="text-sm font-bold text-slate-400 uppercase tracking-widest mt-2">{inv.currency} Total</div>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {inv.status === 'pending' ? (
+                        <button 
+                          onClick={() => handleQuickPay('consultation', inv.amount)}
+                          className="py-5 bg-black text-white font-black rounded-2xl hover:bg-slate-800 transition-all flex items-center justify-center gap-3 shadow-xl"
+                        >
+                          <ShieldCheck className="w-5 h-5" /> Secure Checkout
+                        </button>
+                      ) : (
+                        <div className="py-5 px-8 bg-green-50 border border-green-100 rounded-2xl text-center text-green-700 font-black flex items-center justify-center gap-3">
+                          <CheckCircle2 className="w-5 h-5" /> Payment Successfully Processed
+                        </div>
+                      )}
+                      <button 
+                        onClick={() => downloadInvoice(inv)}
+                        className="py-5 px-8 bg-white border-2 border-black/5 rounded-2xl text-black font-black hover:border-black transition-all flex items-center justify-center gap-3 shadow-sm"
+                      >
+                        <FileText className="w-5 h-5" /> Generate PDF Document
+                      </button>
+                    </div>
+                  </div>
+                </div>
               ))}
+              <div className="flex justify-center">
+                 <button onClick={() => { setInvoices([]); setShowLookupManual(true); }} className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-black transition-colors border-b-2 border-transparent hover:border-black pb-1">
+                    Search Different Record
+                 </button>
+              </div>
+            </div>
+          )}
+
+          {/* Standard Service Cards Grid */}
+          {invoices.length === 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                 {/* Consultation */}
+                 <div className="service-card p-10 rounded-[3rem] bg-white border border-black/10 group">
+                    <div className="w-16 h-16 bg-slate-50 border border-black/5 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-black group-hover:text-white transition-all">
+                        <Video className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-2xl font-black mb-4">60-Min Strategy</h3>
+                    <p className="text-slate-800 font-medium mb-10 leading-relaxed">
+                        Intensive direct session for EdTech startups, LMS architecture review, or AI implementation strategy.
+                    </p>
+                    <div className="flex items-center justify-between mt-auto pt-6 border-t border-black/5">
+                        <div className="text-3xl font-black">{symbol}{consultationRate.toLocaleString()}</div>
+                        <button 
+                            onClick={() => handleQuickPay('consultation', consultationRate)}
+                            className="px-6 py-3 bg-black text-white rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-lg"
+                        >
+                            Book Session
+                        </button>
+                    </div>
+                 </div>
+
+                 {/* Custom Support */}
+                 <div className="service-card p-10 rounded-[3rem] bg-white border border-black/10 group">
+                    <div className="w-16 h-16 bg-slate-50 border border-black/5 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-neon-ember group-hover:text-white transition-all">
+                        <Coffee className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-2xl font-black mb-4">Support The Mission</h3>
+                    <p className="text-slate-800 font-medium mb-10 leading-relaxed">
+                        Keep the servers running for the Free School for Africa. Your support directly enables offline learning for thousands.
+                    </p>
+                    <div className="flex flex-col gap-4">
+                        <div className="grid grid-cols-3 gap-2">
+                             {coffeeOptions.map(amt => (
+                                 <button 
+                                    key={amt} 
+                                    onClick={() => setCoffeeAmount(amt)}
+                                    className={`py-2 text-[10px] font-black border-2 rounded-xl transition-all ${coffeeAmount === amt ? 'bg-black text-white border-black' : 'bg-transparent border-black/5 text-slate-500 hover:border-black/20'}`}
+                                 >
+                                     {symbol}{amt.toLocaleString()}
+                                 </button>
+                             ))}
+                        </div>
+                        <button 
+                            onClick={() => handleQuickPay('coffee', coffeeAmount)}
+                            className="w-full py-4 bg-neon-ember text-white rounded-xl font-black text-xs uppercase tracking-widest hover:brightness-110 transition-all shadow-lg flex items-center justify-center gap-2"
+                        >
+                            Contribute Now <ArrowRight className="w-4 h-4" />
+                        </button>
+                    </div>
+                 </div>
+              </div>
+          )}
+        </div>
+
+        {/* Sidebar Info (Right) */}
+        <div className="lg:col-span-4 space-y-8">
+            <div className="p-10 rounded-[2.5rem] bg-black text-white shadow-2xl">
+                <h4 className="text-xs font-mono uppercase tracking-[0.3em] mb-8 text-white/50">Core Expertise</h4>
+                <ul className="space-y-6">
+                    {[
+                        'Offline-First Infrastructure',
+                        'Moodle / OpenEDX Management',
+                        'AI Tutoring Systems',
+                        '2G-Optimized App Design'
+                    ].map((item, i) => (
+                        <li key={i} className="flex items-start gap-4 group">
+                            <div className="w-5 h-5 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-white group-hover:text-black transition-colors">
+                                <span className="text-[10px] font-black">✓</span>
+                            </div>
+                            <span className="text-sm font-bold tracking-tight">{item}</span>
+                        </li>
+                    ))}
+                </ul>
+                <div className="mt-12 pt-8 border-t border-white/10">
+                    <p className="text-xs text-white/40 leading-relaxed italic">
+                        Payments are processed securely via Flutterwave (NGN) or PayPal (USD). 
+                        You will receive an automated PDF receipt upon confirmation.
+                    </p>
+                </div>
             </div>
 
-            <div className="flex gap-3">
-               <input 
-                 type="number"
-                 placeholder="Custom"
-                 value={coffeeAmount}
-                 onChange={(e) => setCoffeeAmount(Number(e.target.value))}
-                 className="flex-grow bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-neon-ember outline-none"
-               />
-               <button 
-                onClick={() => handleQuickPay('coffee', coffeeAmount)}
-                className="px-6 py-3 bg-neon-ember text-black font-bold rounded-xl hover:bg-white transition-all text-sm shadow-[0_0_20px_rgba(255,107,61,0.2)]"
-               >
-                Support
-               </button>
+            <div className="p-10 rounded-[2.5rem] bg-slate-50 border border-black/5">
+                <h4 className="text-xs font-mono uppercase tracking-[0.3em] mb-4 text-slate-400">Project Support</h4>
+                <p className="text-slate-800 font-bold leading-relaxed mb-6">
+                    Dedicated to resilient software for emerging markets.
+                </p>
+                <Link to="/contact" className="text-sm font-black text-black underline underline-offset-4 hover:text-slate-600 transition-colors">
+                    Start a project →
+                </Link>
             </div>
-          </div>
-
-          <div className="p-6 border border-white/5 bg-white/[0.02] rounded-3xl text-center">
-            <p className="text-[11px] text-slate-500 leading-relaxed italic">
-              Payments are processed via PayPal for USD or Flutterwave for NGN. Secure, fast, and frictionless.
-            </p>
-          </div>
-
         </div>
       </div>
     </div>
