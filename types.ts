@@ -2,15 +2,24 @@ export interface Project {
   id: string;
   title: string;
   description: string;
-  long_description?: string; // Added for AI context
+  long_description?: string;
   tags: string[];
   github_url?: string;
   live_url?: string;
   case_study_url?: string;
   image_url?: string;
-  featured?: boolean;        // Added
-  order_int?: number;        // Added
+  featured?: boolean;
+  order_int?: number;
   created_at: string;
+}
+
+export interface Certification {
+  id: string;
+  title: string;
+  issuer: string;
+  issue_date: string;
+  badge_url: string;
+  verify_url: string;
 }
 
 export interface Message {
@@ -53,7 +62,7 @@ export interface BlogPost {
 
 export interface PaymentRecord {
   id: string;
-  client_id?: string; // Linked to auth
+  client_id?: string;
   client_name: string;
   client_email: string;
   service_name: string;
