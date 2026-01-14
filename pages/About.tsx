@@ -1,13 +1,13 @@
 import React from 'react';
 import SEO from '../components/SEO';
-import { Code2, Cloud, Cpu, Database, Award, ExternalLink } from 'lucide-react';
+import { Code2, Cloud, Cpu, Database, Award, ExternalLink, Zap, Workflow, Terminal, Globe } from 'lucide-react';
 import { Certification } from '../types';
 
 const About: React.FC = () => {
   const experiences = [
+    { title: 'AI Automation Engineer', location: 'Freelance/Consulting', date: '2024 - Present', desc: 'Building AI-powered workflows and SaaS automation systems that reduced operational effort by 30%+.', tags: ['Python', 'Zapier', 'OpenAI'] },
     { title: 'Full-Stack Developer', location: 'Cloud Focused', date: '2023 - Present', desc: 'Building scalable applications and microservices across cloud environments.', tags: ['React', 'Node.js', 'Vite'] },
     { title: 'AI Solutions Specialist', location: 'IBM Watson Ecosystem', date: '2023 - 2024', desc: 'Utilizing Watson Assistant, NLU, and Sentiment Analysis for user-focused insights.', tags: ['IBM Watson', 'NLU', 'AI'] },
-    { title: 'Cloud Integration Lead', location: 'Distributed Systems', date: '2022 - 2023', desc: 'Handling deployments and cloud-based workflows on Google and IBM infrastructure.', tags: ['GCP', 'IBM Cloud', 'DevOps'] },
   ];
 
   const certifications: Certification[] = [
@@ -16,7 +16,7 @@ const About: React.FC = () => {
       title: 'IBM Watson AI Professional',
       issuer: 'IBM',
       issue_date: '2024',
-      badge_url: 'https://images.credly.com/images/86435f3d-5900-476b-950c-e16f72f883f3/IBM-Watson-Assistant-Foundation.png', // Replace with your actual badge URL
+      badge_url: 'https://images.credly.com/images/86435f3d-5900-476b-950c-e16f72f883f3/IBM-Watson-Assistant-Foundation.png',
       verify_url: 'https://www.credly.com/users/sgukobong'
     },
     {
@@ -24,43 +24,43 @@ const About: React.FC = () => {
       title: 'Google Cloud Certified',
       issuer: 'Google',
       issue_date: '2023',
-      badge_url: 'https://images.credly.com/images/ae16f6b5-559d-4348-89c0-99c084a44107/google-cloud-certified-associate-cloud-engineer.png', // Replace with your actual badge URL
+      badge_url: 'https://images.credly.com/images/ae16f6b5-559d-4348-89c0-99c084a44107/google-cloud-certified-associate-cloud-engineer.png',
       verify_url: 'https://www.credly.com/users/sgukobong'
     }
   ];
 
   const skills = [
-    { category: "Frontend", items: ["HTML", "CSS", "JavaScript", "React", "TypeScript", "Tailwind"] },
-    { category: "Backend", items: ["Node.js", "Express", "Java", "Python", "SQL", "Supabase"] },
-    { category: "Cloud & AI", items: ["IBM Watson", "GCP", "IBM Cloud", "NLU", "Automations"] }
+    { category: "Primary Expertise", items: ["Artificial Intelligence", "Workflow Automation", "Python", "API Integration", "SaaS Development"] },
+    { category: "Frontend & Logic", items: ["JavaScript", "React", "TypeScript", "Tailwind", "Node.js"] },
+    { category: "Tools & Ecosystem", items: ["Zapier", "Make", "IBM Watson", "GCP", "REST APIs", "Git", "LMS Systems"] }
   ];
 
   return (
     <div className="max-w-6xl mx-auto pt-10 pb-32">
-      <SEO title="About — Saviour Ukobong" description="Full-stack developer with expertise in JavaScript, IBM Watson, and cloud infrastructure." />
+      <SEO title="About — Saviour Ukobong" description="AI Automation Engineer and Full-Stack Developer specialized in Python, JavaScript, and intelligent workflows." />
       
       {/* Intro Bio */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-20 mb-40 items-center">
          <div className="md:col-span-7">
             <span className="text-[10px] font-mono uppercase tracking-[0.5em] text-slate-500 mb-6 block font-black">● Introduction</span>
             <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-[1.1] mb-12">
-              Turning ideas into clean, <span className="italic font-serif">functional interfaces.</span>
+              Building systems that <span className="italic font-serif">think, automate,</span> and scale.
             </h2>
             <div className="prose prose-slate prose-xl max-w-none text-slate-700 font-medium leading-relaxed space-y-8">
                <p>
-                 I’m a full-stack developer with hands-on experience building and deploying web applications and microservices across cloud environments, including IBM Cloud and Google infrastructure.
+                 I’m a full-stack developer and AI automation specialist. I specialize in building AI-powered workflows, SaaS integrations, and data-driven systems using Python, JavaScript, and modern AI APIs.
                </p>
                <p>
-                 Over the past two years, I’ve worked across both the frontend and backend, contributing to applications that are scalable, reliable, and user-focused. I’m comfortable working with JavaScript-based stacks and enjoy turning ideas into solid server logic.
+                 I’ve successfully built automation systems that reduced operational manual effort by over 30% and engineered learning platforms serving over 1,000 users. My work focuses on bridging the gap between complex data and functional, user-centric interfaces.
                </p>
                <p>
-                 I’m naturally curious, quick to adapt, and motivated by building systems that solve real problems and scale well.
+                 Whether it's custom SaaS backend logic, Zapier/Make automations, or deploying local-first LLMs, I’m motivated by solving real-world problems with solid code and intelligent logic.
                </p>
             </div>
          </div>
          <div className="md:col-span-5">
             <div className="bg-black text-white p-12 rounded-[3.5rem] shadow-2xl">
-               <h3 className="text-xs font-mono uppercase tracking-widest text-white/50 mb-10 font-black">Core Skills</h3>
+               <h3 className="text-xs font-mono uppercase tracking-widest text-white/50 mb-10 font-black">Technical Toolkit</h3>
                <div className="space-y-10">
                   {skills.map(skillGroup => (
                     <div key={skillGroup.category}>
@@ -103,7 +103,6 @@ const About: React.FC = () => {
               </div>
             </a>
           ))}
-          {/* CTA to view all on Credly */}
           <a 
             href="https://www.credly.com/users/sgukobong" 
             target="_blank" 
@@ -144,19 +143,19 @@ const About: React.FC = () => {
       {/* Specializations */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
          <div className="p-12 bg-slate-50 rounded-[3rem] border border-black/5">
-            <Cpu className="w-8 h-8 mb-6" />
-            <h4 className="text-xl font-black mb-4">IBM Watson</h4>
-            <p className="text-slate-600 font-medium">Expertise in Watson Assistant, NLU, and Sentiment Analysis for building intelligent interactions.</p>
+            <Zap className="w-8 h-8 mb-6" />
+            <h4 className="text-xl font-black mb-4">AI & Workflow Automation</h4>
+            <p className="text-slate-600 font-medium">Expert in Zapier, Make, and custom Python scripts to streamline business processes and SaaS onboarding.</p>
          </div>
          <div className="p-12 bg-slate-50 rounded-[3rem] border border-black/5">
-            <Database className="w-8 h-8 mb-6" />
-            <h4 className="text-xl font-black mb-4">Backend Logic</h4>
-            <p className="text-slate-600 font-medium">Solid server-side engineering with Node.js and Java, ensuring data integrity and system reliability.</p>
+            <Terminal className="w-8 h-8 mb-6" />
+            <h4 className="text-xl font-black mb-4">Python & API Integration</h4>
+            <p className="text-slate-600 font-medium">Building robust data pipelines, reporting engines, and integrating modern AI APIs into existing products.</p>
          </div>
          <div className="p-12 bg-slate-50 rounded-[3rem] border border-black/5">
-            <Cloud className="w-8 h-8 mb-6" />
-            <h4 className="text-xl font-black mb-4">Cloud Ops</h4>
-            <p className="text-slate-600 font-medium">Confident deployment and workflow management across Google Cloud and IBM infrastructure.</p>
+            <Globe className="w-8 h-8 mb-6" />
+            <h4 className="text-xl font-black mb-4">LMS & EdTech Systems</h4>
+            <p className="text-slate-600 font-medium">Deep experience with Moodle and custom LMS architectures designed for the African context and unreliable networks.</p>
          </div>
       </div>
     </div>
