@@ -1,7 +1,10 @@
-import React, { Suspense } from 'react';
+
+import React, { Suspense, useState } from 'react';
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import FloatingChat from './components/FloatingChat';
+import ManagementModal from './components/ManagementModal';
+import { ShieldCheck } from 'lucide-react';
 
 // Lazy load pages for performance (Code Splitting)
 const Home = React.lazy(() => import('./pages/Home'));
@@ -11,6 +14,7 @@ const Publications = React.lazy(() => import('./pages/Publications'));
 const Blog = React.lazy(() => import('./pages/Blog'));
 const BlogPost = React.lazy(() => import('./pages/BlogPost'));
 const ClientPortal = React.lazy(() => import('./pages/ClientPortal'));
+const ClientDashboard = React.lazy(() => import('./pages/ClientDashboard'));
 const Now = React.lazy(() => import('./pages/Now'));
 const Contact = React.lazy(() => import('./pages/Contact'));
 const AdminPosts = React.lazy(() => import('./pages/AdminPosts'));
@@ -35,6 +39,8 @@ const PageLoader = () => (
 );
 
 const App: React.FC = () => {
+  const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+
   return (
     <HashRouter>
       <ScrollToTop />
@@ -50,6 +56,7 @@ const App: React.FC = () => {
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/portal" element={<ClientPortal />} />
+              <Route path="/dashboard" element={<ClientDashboard />} />
               <Route path="/now" element={<Now />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/pay" element={<Payments />} />
@@ -61,23 +68,44 @@ const App: React.FC = () => {
         
         <FloatingChat />
         
-        <footer className="py-16 border-t border-black/5 relative overflow-hidden bg-white">
-           <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8 text-slate-400 text-sm">
-            <p className="font-medium">© {new Date().getFullYear()} Saviour Ukobong.</p>
-            
-            <div className="flex gap-8">
-                <a href="https://www.linkedin.com/in/sgukobong/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black transition-colors">
-                    LinkedIn
-                </a>
-                <a href="https://github.com/sgukobong" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black transition-colors">
-                    GitHub
-                </a>
-                <a href="https://x.com/sgukobong" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black transition-colors">
-                    X
-                </a>
-            </div>
+        <footer className="py-24 border-t border-black/5 relative overflow-hidden bg-white">
+           <div className="max-w-7xl mx-auto px-6">
+              <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-16">
+                 <div className="text-center md:text-left">
+                    <h3 className="text-2xl font-black tracking-tighter mb-2">saviour.dev</h3>
+                    <p className="text-slate-400 text-sm font-medium">Engineering intelligent systems for the African context.</p>
+                 </div>
+                 
+                 <div className="flex gap-12">
+                    <div className="flex flex-col gap-4">
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">Social</span>
+                        <a href="https://www.linkedin.com/in/sgukobong/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black transition-colors text-sm font-bold">LinkedIn</a>
+                        <a href="https://github.com/sgukobong" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black transition-colors text-sm font-bold">GitHub</a>
+                    </div>
+                 </div>
+              </div>
+
+              <div className="pt-12 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-8 text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">
+                <p>© {new Date().getFullYear()} Saviour Ukobong. All rights reserved.</p>
+                
+                <div className="flex items-center gap-8">
+                    <button 
+                      onClick={() => setIsAdminModalOpen(true)}
+                      className="flex items-center gap-2 hover:text-brand-indigo transition-colors"
+                    >
+                      <ShieldCheck className="w-3.5 h-3.5" /> Admin Command
+                    </button>
+                    <div className="w-1.5 h-1.5 bg-brand-emerald rounded-full"></div>
+                    <span>System Status: Optimal</span>
+                </div>
+              </div>
            </div>
         </footer>
+
+        <ManagementModal 
+          isOpen={isAdminModalOpen} 
+          onClose={() => setIsAdminModalOpen(false)} 
+        />
       </div>
     </HashRouter>
   );

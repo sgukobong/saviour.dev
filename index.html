@@ -6,9 +6,9 @@
     <meta name="theme-color" content="#ffffff" />
     
     <!-- Primary Meta Tags -->
-    <title>Saviour Ukobong — AI Developer & Offline-First Engineer in Nigeria</title>
-    <meta name="title" content="Saviour Ukobong — AI Developer & Offline-First Engineer in Nigeria">
-    <meta name="description" content="Saviour Ukobong is an AI developer and EdTech engineer in Nigeria specializing in offline-first mobile apps, Moodle systems, and 2G-friendly technology solutions for Africa.">
+    <title>Saviour Ukobong — AI Developer & Full-Stack Engineer</title>
+    <meta name="title" content="Saviour Ukobong — AI Developer & Full-Stack Engineer">
+    <meta name="description" content="Saviour Ukobong is an AI developer and EdTech engineer specializing in scalable web applications, AI-powered workflows, and automation.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -24,7 +24,10 @@
         --bg-1: #ffffff;
         --text-main: #000000;
         --text-secondary: #333333;
-        --accent-cyan: #000000;
+        --brand-indigo: #4f46e5;
+        --brand-violet: #8b5cf6;
+        --brand-emerald: #10b981;
+        --brand-amber: #f59e0b;
       }
 
       body {
@@ -32,52 +35,62 @@
         color: var(--text-main);
         font-family: 'Plus Jakarta Sans', sans-serif;
         -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
       }
 
       .font-serif {
         font-family: 'Instrument Serif', serif;
       }
 
-      .text-hero { font-size: clamp(6rem, 18vw, 15rem); line-height: 0.8; letter-spacing: -0.06em; font-weight: 500; }
-      .text-section-title { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
-      
-      .glass-card {
-        background: #ffffff;
-        border: 1px solid rgba(0, 0, 0, 0.08);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+      .blob {
+        position: fixed;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        filter: blur(140px);
+        z-index: -1;
+        opacity: 0.08;
+        pointer-events: none;
+        transition: all 1s ease;
       }
 
-      .vertical-text {
-        writing-mode: vertical-rl;
-        transform: rotate(180deg);
-      }
+      .blob-1 { top: -20%; right: -10%; background: var(--brand-indigo); animation: float 30s infinite alternate; }
+      .blob-2 { bottom: -20%; left: -10%; background: var(--brand-emerald); animation: float 35s infinite alternate-reverse; }
+      .blob-3 { top: 40%; left: 30%; background: var(--brand-violet); width: 400px; height: 400px; animation: float 40s infinite alternate; opacity: 0.05; }
 
-      .service-card {
-        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-      }
-      .service-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 30px 60px -12px rgba(0,0,0,0.12);
+      @keyframes float {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(150px, 80px) scale(1.1); }
+        100% { transform: translate(-50px, 120px) scale(0.9); }
       }
 
       /* Custom Scrollbar */
-      ::-webkit-scrollbar { width: 5px; }
+      ::-webkit-scrollbar { width: 6px; }
       ::-webkit-scrollbar-track { background: var(--bg-0); }
-      ::-webkit-scrollbar-thumb { background: #000; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 10px; }
+      
+      .selection-vibrant::selection {
+        background: var(--brand-indigo);
+        color: white;
+      }
     </style>
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
+              brand: {
+                indigo: '#4f46e5',
+                violet: '#8b5cf6',
+                emerald: '#10b981',
+                amber: '#f59e0b',
+                rose: '#f43f5e',
+                cyan: '#06b6d4'
+              },
               cosmic: {
                 950: '#fcfcfc',
                 900: '#ffffff',
-                800: '#e0e0e0',
-              },
-              neon: {
-                cyan: '#000000',
-                ember: '#d9481b',
+                800: '#f1f5f9',
               }
             }
           }
@@ -103,7 +116,10 @@
 }
 </script>
 </head>
-  <body>
+  <body class="selection-vibrant">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

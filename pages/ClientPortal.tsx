@@ -6,7 +6,7 @@ import { initiatePayment } from '../services/flutterwave';
 import PayPalButton from '../components/PayPalButton';
 import SEO from '../components/SEO';
 import jsPDF from 'jspdf';
-import { Coffee, Video, FileText, Search, ArrowRight, ShieldCheck, CheckCircle2, Globe } from 'lucide-react';
+import { Coffee, Video, FileText, Search, ArrowRight, ShieldCheck, CheckCircle2, Globe, Zap } from 'lucide-react';
 
 const MOCK_DATA: PaymentRecord[] = [
   {
@@ -29,7 +29,7 @@ const ClientPortal: React.FC = () => {
   const [lookupType, setLookupType] = useState<'invoice' | 'email'>('invoice');
   const [invoices, setInvoices] = useState<PaymentRecord[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [hasSearched, setHasSearched] = useState(true); // Default to viewing services if no params
+  const [hasSearched, setHasSearched] = useState(true); 
   const [error, setError] = useState('');
   const [showLookupManual, setShowLookupManual] = useState(false);
 
@@ -44,7 +44,6 @@ const ClientPortal: React.FC = () => {
   const symbol = currency === 'USD' ? '$' : '₦';
 
   useEffect(() => {
-    // Reset coffee amount when currency changes
     setCoffeeAmount(coffeeOptions[0]);
   }, [currency]);
 
@@ -196,28 +195,31 @@ const ClientPortal: React.FC = () => {
         description="Book a consultation, support my work, or manage your invoices directly through the portal."
       />
 
-      {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
         <div className="max-w-2xl">
-          <span className="text-[10px] font-mono uppercase tracking-[0.5em] text-slate-500 mb-6 block font-bold">● Client Services</span>
+          <span className="text-[10px] font-mono uppercase tracking-[0.5em] text-brand-indigo mb-6 block font-bold">● Client Services</span>
           <h1 className="text-section-title leading-tight text-black">
-            {invoices.length > 0 ? 'Billing Studio' : 'Work With Me'}
+            {invoices.length > 0 ? (
+              <>Billing <span className="text-brand-indigo">Studio</span></>
+            ) : (
+              <>Work With <span className="italic font-serif text-brand-indigo">Me</span></>
+            )}
           </h1>
           <p className="text-slate-800 text-xl font-medium mt-6 leading-relaxed">
             Direct access to consulting, strategic advice, and administrative tools for ongoing projects.
           </p>
         </div>
         
-        <div className="bg-white border-2 border-black/5 p-1 rounded-full flex items-center shadow-sm">
+        <div className="bg-white border-2 border-black/5 p-1.5 rounded-full flex items-center shadow-xl shadow-brand-indigo/5">
              <button 
                onClick={() => setCurrency('USD')}
-               className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${currency === 'USD' ? 'bg-black text-white shadow-lg' : 'text-slate-500 hover:text-black'}`}
+               className={`px-8 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${currency === 'USD' ? 'bg-brand-indigo text-white shadow-lg' : 'text-slate-500 hover:text-black'}`}
              >
                USD ($)
              </button>
              <button 
                onClick={() => setCurrency('NGN')}
-               className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${currency === 'NGN' ? 'bg-black text-white shadow-lg' : 'text-slate-500 hover:text-black'}`}
+               className={`px-8 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${currency === 'NGN' ? 'bg-brand-indigo text-white shadow-lg' : 'text-slate-500 hover:text-black'}`}
              >
                NGN (₦)
              </button>
@@ -231,40 +233,40 @@ const ClientPortal: React.FC = () => {
           {!showLookupManual && invoices.length === 0 && !isSearching && (
             <div 
               onClick={() => setShowLookupManual(true)}
-              className="group cursor-pointer p-10 rounded-[3rem] bg-slate-50 border-2 border-dashed border-black/10 flex items-center justify-between hover:border-black/20 hover:bg-slate-100/50 transition-all"
+              className="group cursor-pointer p-10 rounded-[3rem] bg-brand-indigo/5 border-2 border-dashed border-brand-indigo/20 flex items-center justify-between hover:border-brand-indigo/40 hover:bg-brand-indigo/10 transition-all"
             >
                <div className="flex items-center gap-8">
-                  <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center border border-black/5 shadow-sm group-hover:scale-110 transition-transform">
-                     <Search className="w-7 h-7 text-black" />
+                  <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center border border-brand-indigo/10 shadow-sm group-hover:scale-110 transition-transform">
+                     <Search className="w-7 h-7 text-brand-indigo" />
                   </div>
                   <div>
                     <h3 className="text-2xl font-black text-black">Returning Client?</h3>
                     <p className="text-slate-700 font-medium">Search for your invoice or billing history.</p>
                   </div>
                </div>
-               <ArrowRight className="w-8 h-8 text-slate-300 group-hover:text-black group-hover:translate-x-2 transition-all" />
+               <ArrowRight className="w-8 h-8 text-brand-indigo group-hover:translate-x-2 transition-all" />
             </div>
           )}
 
           {(showLookupManual || isSearching) && invoices.length === 0 && (
-             <div className="bg-white border-2 border-black/5 p-12 rounded-[3.5rem] shadow-xl animate-fade-in">
+             <div className="bg-white border border-brand-indigo/10 p-12 rounded-[3.5rem] shadow-2xl shadow-brand-indigo/5 animate-fade-in">
                 <div className="flex justify-between items-center mb-10">
-                    <h2 className="text-xs font-mono text-black uppercase tracking-widest font-black flex items-center gap-3">
+                    <h2 className="text-xs font-mono text-brand-indigo uppercase tracking-widest font-black flex items-center gap-3">
                         <Search className="w-5 h-5" /> Invoice Search
                     </h2>
-                    <button onClick={() => setShowLookupManual(false)} className="text-[10px] font-mono text-slate-400 hover:text-black uppercase tracking-widest font-bold border-b border-transparent hover:border-black transition-all">Cancel Search</button>
+                    <button onClick={() => setShowLookupManual(false)} className="text-[10px] font-mono text-slate-400 hover:text-brand-indigo uppercase tracking-widest font-bold border-b border-transparent hover:border-brand-indigo transition-all">Cancel Search</button>
                 </div>
 
                 <div className="flex gap-4 mb-10 bg-slate-50 p-2 rounded-2xl w-fit">
                     <button 
                         onClick={() => { setLookupType('invoice'); setLookupValue(''); setError(''); }}
-                        className={`px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${lookupType === 'invoice' ? 'bg-white text-black shadow-md' : 'text-slate-500 hover:text-black'}`}
+                        className={`px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${lookupType === 'invoice' ? 'bg-brand-indigo text-white shadow-md' : 'text-slate-500 hover:text-brand-indigo'}`}
                     >
                         Invoice Number
                     </button>
                     <button 
                         onClick={() => { setLookupType('email'); setLookupValue(''); setError(''); }}
-                        className={`px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${lookupType === 'email' ? 'bg-white text-black shadow-md' : 'text-slate-500 hover:text-black'}`}
+                        className={`px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${lookupType === 'email' ? 'bg-brand-indigo text-white shadow-md' : 'text-slate-500 hover:text-brand-indigo'}`}
                     >
                         Client Email
                     </button>
@@ -277,19 +279,19 @@ const ClientPortal: React.FC = () => {
                         value={lookupValue}
                         onChange={(e) => setLookupValue(e.target.value)}
                         placeholder={lookupType === 'invoice' ? "INV-2025-XXX" : "you@company.com"}
-                        className="flex-grow bg-slate-50 border-2 border-black/5 rounded-2xl px-8 py-5 text-black font-bold focus:border-black outline-none transition-all placeholder:text-slate-400"
+                        className="flex-grow bg-slate-50 border-2 border-black/5 rounded-2xl px-8 py-5 text-black font-bold focus:border-brand-indigo focus:bg-white outline-none transition-all placeholder:text-slate-400"
                     />
                     <button 
                         type="submit"
                         disabled={isSearching}
-                        className="h-16 px-10 bg-black text-white font-black rounded-2xl hover:bg-slate-800 transition-all shadow-xl whitespace-nowrap flex items-center justify-center gap-3 disabled:opacity-50"
+                        className="h-16 px-10 bg-black text-white font-black rounded-2xl hover:bg-brand-indigo transition-all shadow-xl whitespace-nowrap flex items-center justify-center gap-3 disabled:opacity-50"
                     >
                         {isSearching ? <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div> : 'Retrieve Records'}
                     </button>
                 </form>
 
                 {error && (
-                    <div className="mt-8 p-6 bg-red-50 border-2 border-red-100 text-red-600 rounded-2xl text-center text-sm font-black animate-shake">
+                    <div className="mt-8 p-6 bg-brand-rose/5 border border-brand-rose/20 text-brand-rose rounded-2xl text-center text-sm font-black animate-shake">
                     {error}
                     </div>
                 )}
@@ -299,49 +301,46 @@ const ClientPortal: React.FC = () => {
           {invoices.length > 0 && (
             <div className="space-y-12 animate-fade-in">
               {invoices.map((inv) => (
-                <div key={inv.id} className="bg-white border-2 border-black/5 p-12 rounded-[3.5rem] shadow-xl relative group">
+                <div key={inv.id} className="bg-white border border-brand-indigo/10 p-12 rounded-[3.5rem] shadow-xl shadow-brand-indigo/5 relative group">
                   <div className="flex flex-col gap-12">
                     <div className="flex flex-col md:flex-row justify-between items-start gap-8">
                       <div className="flex-1">
                         <div className="flex items-center gap-4 mb-8">
-                            <span className={`px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest ${inv.status === 'paid' ? 'bg-green-100 text-green-700 border border-green-200' : 'bg-yellow-100 text-yellow-700 border border-yellow-200 shadow-sm'}`}>
-                                {inv.status === 'paid' ? 'Paid & Logged' : 'Pending Payment'}
+                            <span className={`px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest ${inv.status === 'paid' ? 'bg-brand-emerald/10 text-brand-emerald border border-brand-emerald/20' : 'bg-brand-amber/10 text-brand-amber border border-brand-amber/20 shadow-sm animate-pulse'}`}>
+                                {inv.status === 'paid' ? 'Paid & Logged' : 'Awaiting Payment'}
                             </span>
                             <span className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-widest">INV #{inv.invoice_number}</span>
                         </div>
-                        <h2 className="text-4xl font-black text-black leading-tight tracking-tight">{inv.service_name}</h2>
+                        <h2 className="text-4xl font-black text-black leading-tight tracking-tight group-hover:text-brand-indigo transition-colors">{inv.service_name}</h2>
                         <p className="text-slate-700 text-xl mt-4 leading-relaxed font-medium">{inv.description}</p>
                       </div>
                       <div className="text-left md:text-right">
-                        <div className="text-5xl md:text-6xl font-black text-black tracking-tighter mb-2">{inv.currency === 'USD' ? '$' : '₦'}{inv.amount.toLocaleString()}</div>
+                        <div className="text-5xl md:text-6xl font-black text-brand-indigo tracking-tighter mb-2">{inv.currency === 'USD' ? '$' : '₦'}{inv.amount.toLocaleString()}</div>
                         <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{inv.currency} Final Balance</div>
                       </div>
                     </div>
                     
                     {inv.status === 'pending' ? (
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-8 border-t-2 border-black/5">
-                        {/* Option A: Flutterwave for Card/Local */}
                         <div className="space-y-6">
                             <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center border border-black/5">
-                                    <ShieldCheck className="w-4 h-4 text-black" />
+                                <div className="w-8 h-8 rounded-full bg-brand-indigo/5 flex items-center justify-center border border-brand-indigo/10">
+                                    <ShieldCheck className="w-4 h-4 text-brand-indigo" />
                                 </div>
                                 <span className="text-xs font-black uppercase tracking-widest text-slate-400">Card & Bank Transfer</span>
                             </div>
                             <button 
                                 onClick={() => handleFlutterwavePay(inv)}
-                                className="w-full py-6 bg-black text-white font-black rounded-3xl hover:bg-slate-800 transition-all flex items-center justify-center gap-4 shadow-2xl group/btn"
+                                className="w-full py-6 bg-black text-white font-black rounded-3xl hover:bg-brand-indigo transition-all flex items-center justify-center gap-4 shadow-xl shadow-brand-indigo/10 group/btn"
                             >
                                 Pay via Card <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-2 transition-transform" />
                             </button>
-                            <p className="text-[9px] text-slate-400 font-black uppercase text-center tracking-widest">Instant processing for NGN/USD</p>
                         </div>
 
-                        {/* Option B: PayPal for International */}
                         <div className="space-y-6">
                             <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center border border-black/5">
-                                    <Globe className="w-4 h-4 text-black" />
+                                <div className="w-8 h-8 rounded-full bg-brand-violet/5 flex items-center justify-center border border-brand-violet/10">
+                                    <Globe className="w-4 h-4 text-brand-violet" />
                                 </div>
                                 <span className="text-xs font-black uppercase tracking-widest text-slate-400">International Clients</span>
                             </div>
@@ -354,12 +353,12 @@ const ClientPortal: React.FC = () => {
                       </div>
                     ) : (
                       <div className="flex flex-col md:flex-row gap-4">
-                        <div className="flex-grow py-6 px-10 bg-green-50 border-2 border-green-100 rounded-[2rem] text-center text-green-700 font-black flex items-center justify-center gap-4">
+                        <div className="flex-grow py-6 px-10 bg-brand-emerald/5 border-2 border-brand-emerald/10 rounded-[2rem] text-center text-brand-emerald font-black flex items-center justify-center gap-4">
                           <CheckCircle2 className="w-6 h-6" /> Transaction Cleared on {new Date(inv.paid_at || "").toLocaleDateString()}
                         </div>
                         <button 
                           onClick={() => downloadInvoice(inv)}
-                          className="py-6 px-10 bg-white border-2 border-black/10 rounded-[2rem] text-black font-black hover:border-black transition-all flex items-center justify-center gap-4 shadow-sm"
+                          className="py-6 px-10 bg-white border-2 border-black/10 rounded-[2rem] text-black font-black hover:border-brand-indigo transition-all flex items-center justify-center gap-4 shadow-sm"
                         >
                           <FileText className="w-6 h-6" /> Download Receipt
                         </button>
@@ -369,7 +368,7 @@ const ClientPortal: React.FC = () => {
                 </div>
               ))}
               <div className="flex justify-center">
-                 <button onClick={() => { setInvoices([]); setShowLookupManual(true); }} className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-black transition-colors border-b-2 border-black/5 hover:border-black pb-2">
+                 <button onClick={() => { setInvoices([]); setShowLookupManual(true); }} className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-brand-indigo transition-colors border-b-2 border-transparent hover:border-brand-indigo pb-2">
                     Search Another Invoice
                  </button>
               </div>
@@ -379,19 +378,19 @@ const ClientPortal: React.FC = () => {
           {invoices.length === 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                  {/* Consultation */}
-                 <div className="service-card p-12 rounded-[3.5rem] bg-white border-2 border-black/5 group hover:border-black shadow-sm transition-all duration-500">
-                    <div className="w-20 h-20 bg-slate-50 border border-black/5 rounded-3xl flex items-center justify-center mb-10 group-hover:bg-black group-hover:text-white transition-all duration-700">
+                 <div className="service-card p-12 rounded-[3.5rem] bg-white border border-brand-indigo/10 group hover:border-brand-indigo shadow-sm hover:shadow-2xl hover:shadow-brand-indigo/5 transition-all duration-500">
+                    <div className="w-20 h-20 bg-brand-indigo/5 border border-brand-indigo/10 rounded-3xl flex items-center justify-center mb-10 group-hover:bg-brand-indigo group-hover:text-white transition-all duration-700">
                         <Video className="w-10 h-10" />
                     </div>
-                    <h3 className="text-3xl font-black mb-6 tracking-tight">60-Min Strategy</h3>
+                    <h3 className="text-3xl font-black mb-6 tracking-tight group-hover:text-brand-indigo transition-colors">60-Min Strategy</h3>
                     <p className="text-slate-800 font-medium mb-12 text-lg leading-relaxed">
                         Direct session for EdTech startups, LMS architecture review, or cloud implementation strategy.
                     </p>
-                    <div className="flex items-center justify-between mt-auto pt-10 border-t-2 border-black/5">
-                        <div className="text-4xl font-black tracking-tighter">{symbol}{consultationRate.toLocaleString()}</div>
+                    <div className="flex items-center justify-between mt-auto pt-10 border-t border-black/5">
+                        <div className="text-4xl font-black tracking-tighter text-brand-indigo">{symbol}{consultationRate.toLocaleString()}</div>
                         <button 
                             onClick={() => handleQuickPay('consultation', consultationRate)}
-                            className="px-8 py-4 bg-black text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-xl"
+                            className="px-8 py-4 bg-black text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-brand-indigo transition-all shadow-xl shadow-brand-indigo/10"
                         >
                             Book Call
                         </button>
@@ -399,13 +398,13 @@ const ClientPortal: React.FC = () => {
                  </div>
 
                  {/* Support */}
-                 <div className="service-card p-12 rounded-[3.5rem] bg-white border-2 border-black/5 group hover:border-black shadow-sm transition-all duration-500">
-                    <div className="w-20 h-20 bg-slate-50 border border-black/5 rounded-3xl flex items-center justify-center mb-10 group-hover:bg-black group-hover:text-white transition-all duration-700">
+                 <div className="service-card p-12 rounded-[3.5rem] bg-white border border-brand-amber/10 group hover:border-brand-amber shadow-sm hover:shadow-2xl hover:shadow-brand-amber/5 transition-all duration-500">
+                    <div className="w-20 h-20 bg-brand-amber/5 border border-brand-amber/10 rounded-3xl flex items-center justify-center mb-10 group-hover:bg-brand-amber group-hover:text-white transition-all duration-700">
                         <Coffee className="w-10 h-10" />
                     </div>
-                    <h3 className="text-3xl font-black mb-6 tracking-tight">Fuel The Mission</h3>
+                    <h3 className="text-3xl font-black mb-6 tracking-tight group-hover:text-brand-amber transition-colors">Fuel The Mission</h3>
                     <p className="text-slate-800 font-medium mb-12 text-lg leading-relaxed">
-                        Support ongoing development for the Free School for Africa. Your contribution enables offline learning.
+                        Support ongoing development for the <span className="text-brand-indigo font-black">Free School for Africa.</span> Your contribution enables offline learning.
                     </p>
                     <div className="flex flex-col gap-6">
                         <div className="grid grid-cols-3 gap-3">
@@ -413,7 +412,7 @@ const ClientPortal: React.FC = () => {
                                  <button 
                                     key={amt} 
                                     onClick={() => setCoffeeAmount(amt)}
-                                    className={`py-3 text-[10px] font-black border-2 rounded-xl transition-all ${coffeeAmount === amt ? 'bg-black text-white border-black shadow-lg' : 'bg-transparent border-black/5 text-slate-400 hover:border-black/20'}`}
+                                    className={`py-3 text-[10px] font-black border-2 rounded-xl transition-all ${coffeeAmount === amt ? 'bg-brand-amber text-white border-brand-amber shadow-lg' : 'bg-transparent border-black/5 text-slate-400 hover:border-brand-amber/40 hover:text-brand-amber'}`}
                                  >
                                      {symbol}{amt.toLocaleString()}
                                  </button>
@@ -421,7 +420,7 @@ const ClientPortal: React.FC = () => {
                         </div>
                         <button 
                             onClick={() => handleQuickPay('coffee', coffeeAmount)}
-                            className="w-full py-5 bg-black text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:brightness-110 transition-all shadow-xl flex items-center justify-center gap-3"
+                            className="w-full py-5 bg-black text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-brand-amber transition-all shadow-xl shadow-brand-amber/10 flex items-center justify-center gap-3"
                         >
                             Support Project <ArrowRight className="w-4 h-4" />
                         </button>
@@ -432,17 +431,17 @@ const ClientPortal: React.FC = () => {
         </div>
 
         <div className="lg:col-span-4 space-y-10">
-            <div className="p-12 rounded-[3.5rem] bg-black text-white shadow-2xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            <div className="p-12 rounded-[3.5rem] bg-black text-white shadow-2xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-brand-indigo/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-brand-violet/30 transition-colors duration-1000"></div>
                 <h4 className="text-xs font-mono uppercase tracking-[0.5em] mb-12 text-white/40 font-black">Global Standards</h4>
                 <ul className="space-y-8">
                     {[
-                        { text: 'Secured SSL Transactions', icon: <ShieldCheck className="w-4 h-4" /> },
-                        { text: 'Instant Digital Receipts', icon: <FileText className="w-4 h-4" /> },
-                        { text: 'Multi-Currency Support', icon: <Globe className="w-4 h-4" /> }
+                        { text: 'Secured SSL Transactions', icon: <ShieldCheck className="w-4 h-4" />, color: 'text-brand-emerald' },
+                        { text: 'Instant Digital Receipts', icon: <FileText className="w-4 h-4" />, color: 'text-brand-indigo' },
+                        { text: 'Multi-Currency Support', icon: <Globe className="w-4 h-4" />, color: 'text-brand-violet' }
                     ].map((item, i) => (
-                        <li key={i} className="flex items-center gap-4 group">
-                            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 transition-all group-hover:bg-white group-hover:text-black">
+                        <li key={i} className="flex items-center gap-4 group/item">
+                            <div className={`w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 transition-all group-hover/item:bg-white ${item.color}`}>
                                 {item.icon}
                             </div>
                             <span className="text-sm font-bold tracking-tight">{item.text}</span>
@@ -451,17 +450,17 @@ const ClientPortal: React.FC = () => {
                 </ul>
                 <div className="mt-16 pt-10 border-t border-white/10">
                     <p className="text-[10px] text-white/30 leading-relaxed font-black uppercase tracking-widest italic">
-                        All payments are processed via Flutterwave or PayPal. No financial data is stored locally.
+                        All payments are processed via <span className="text-white/60">Flutterwave</span> or <span className="text-white/60">PayPal</span>. No financial data is stored locally.
                     </p>
                 </div>
             </div>
 
-            <div className="p-12 rounded-[3.5rem] bg-slate-50 border-2 border-black/5">
-                <h4 className="text-xs font-mono uppercase tracking-[0.3em] mb-6 text-slate-400 font-black">Project Inquiries</h4>
+            <div className="p-12 rounded-[3.5rem] bg-slate-50 border border-black/5 hover:border-brand-indigo/30 transition-colors group">
+                <h4 className="text-xs font-mono uppercase tracking-[0.3em] mb-6 text-slate-400 font-black group-hover:text-brand-indigo transition-colors">Project Inquiries</h4>
                 <p className="text-slate-800 text-lg font-black leading-relaxed mb-8 tracking-tight">
                     Custom builds or enterprise infrastructure?
                 </p>
-                <Link to="/contact" className="inline-flex items-center gap-3 text-xs font-black text-black underline underline-offset-8 decoration-2 hover:text-slate-500 transition-colors uppercase tracking-widest">
+                <Link to="/contact" className="inline-flex items-center gap-3 text-xs font-black text-brand-indigo underline underline-offset-8 decoration-brand-indigo/30 decoration-2 hover:decoration-brand-indigo transition-all uppercase tracking-widest">
                     Start a project <ArrowRight className="w-4 h-4" />
                 </Link>
             </div>

@@ -1,3 +1,4 @@
+
 export interface Project {
   id: string;
   title: string;
@@ -11,6 +12,22 @@ export interface Project {
   featured?: boolean;
   order_int?: number;
   created_at: string;
+}
+
+export interface WorkflowItem {
+  id: string;
+  title: string;
+  status: 'pending' | 'active' | 'completed';
+  description: string;
+  date?: string;
+}
+
+export interface CommunicationLog {
+  id: string;
+  subject: string;
+  excerpt: string;
+  date: string;
+  type: 'update' | 'strategy' | 'billing';
 }
 
 export interface Certification {
