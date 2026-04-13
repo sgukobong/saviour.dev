@@ -1,7 +1,7 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI as GoogleGenAI } from "@google/generative-ai";
 import { ChatMessage } from '../types';
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI(process.env.API_KEY || '');
 
 // RAG Helper: Constructs the system prompt with developer context
 const buildSystemInstruction = (context: string) => {
@@ -52,19 +52,19 @@ export const chatWithGemini = async (history: ChatMessage[], newMessage: string,
 
     const systemInstruction = buildSystemInstruction(contextData);
 
-    const chat = ai.chats.create({
-      model: 'gemini-3-flash-preview',
+    const model = ai.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      systemInstruction: systemInstruction,
+    });
+
+    const chat = model.startChat({
       history: formattedHistory,
-      config: {
-        systemInstruction: systemInstruction,
-      },
     });
 
-    const response = await chat.sendMessage({
-      message: newMessage
-    });
+    const result = await chat.sendMessage(newMessage);
+    const response = await result.response;
 
-    return response.text || "I'm having a bit of trouble connecting to the network right now.";
+    return response.text() || "I'm having a bit of trouble connecting to the network right now.";
   } catch (error) {
     console.error("Gemini Error:", error);
     return "The system is currently undergoing a minor reboot. Please try again in a moment.";
