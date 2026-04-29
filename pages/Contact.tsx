@@ -157,11 +157,15 @@ const Contact: React.FC = () => {
                     <form onSubmit={handleSubmit} className="space-y-8">
                         <div className="space-y-8">
                             <div className="group/field">
-                                <label className="block text-[10px] font-mono uppercase tracking-widest text-slate-600 mb-4 font-black group-focus-within/field:text-brand-indigo transition-colors">Full Name</label>
+                                <label htmlFor="name" className="block text-[10px] font-mono uppercase tracking-widest text-slate-600 mb-4 font-black group-focus-within/field:text-brand-indigo transition-colors">
+                                    Full Name <span className="text-brand-rose">*</span>
+                                </label>
                                 <input
+                                    id="name"
                                     type="text"
                                     name="name"
                                     required
+                                    aria-required="true"
                                     value={form.name}
                                     onChange={handleChange}
                                     className="w-full bg-slate-50 border-2 border-black/5 rounded-2xl px-8 py-5 text-black font-bold focus:border-brand-indigo focus:bg-white outline-none transition-all placeholder:text-slate-400"
@@ -169,11 +173,15 @@ const Contact: React.FC = () => {
                                 />
                             </div>
                             <div className="group/field">
-                                <label className="block text-[10px] font-mono uppercase tracking-widest text-slate-600 mb-4 font-black group-focus-within/field:text-brand-indigo transition-colors">Work Email</label>
+                                <label htmlFor="email" className="block text-[10px] font-mono uppercase tracking-widest text-slate-600 mb-4 font-black group-focus-within/field:text-brand-indigo transition-colors">
+                                    Work Email <span className="text-brand-rose">*</span>
+                                </label>
                                 <input
+                                    id="email"
                                     type="email"
                                     name="email"
                                     required
+                                    aria-required="true"
                                     value={form.email}
                                     onChange={handleChange}
                                     className="w-full bg-slate-50 border-2 border-black/5 rounded-2xl px-8 py-5 text-black font-bold focus:border-brand-indigo focus:bg-white outline-none transition-all placeholder:text-slate-400"
@@ -181,10 +189,14 @@ const Contact: React.FC = () => {
                                 />
                             </div>
                             <div className="group/field">
-                                <label className="block text-[10px] font-mono uppercase tracking-widest text-slate-600 mb-4 font-black group-focus-within/field:text-brand-indigo transition-colors">Technical Scope</label>
+                                <label htmlFor="message" className="block text-[10px] font-mono uppercase tracking-widest text-slate-600 mb-4 font-black group-focus-within/field:text-brand-indigo transition-colors">
+                                    Technical Scope <span className="text-brand-rose">*</span>
+                                </label>
                                 <textarea
+                                    id="message"
                                     name="message"
                                     required
+                                    aria-required="true"
                                     rows={5}
                                     value={form.message}
                                     onChange={handleChange}
