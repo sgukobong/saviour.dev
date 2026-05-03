@@ -157,8 +157,8 @@ const Contact: React.FC = () => {
                     <form onSubmit={handleSubmit} className="space-y-8">
                         <div className="space-y-8">
                             <div className="group/field">
-                                <label className="block text-[10px] font-mono uppercase tracking-widest text-slate-600 mb-4 font-black group-focus-within/field:text-brand-indigo transition-colors">Full Name</label>
-                                <input
+                                <label htmlFor="full-name" className="block text-[10px] font-mono uppercase tracking-widest text-slate-600 mb-4 font-black group-focus-within/field:text-brand-indigo transition-colors">Full Name <span className="text-brand-rose ml-1">*</span></label>
+                                <input id="full-name"
                                     type="text"
                                     name="name"
                                     required
@@ -169,8 +169,8 @@ const Contact: React.FC = () => {
                                 />
                             </div>
                             <div className="group/field">
-                                <label className="block text-[10px] font-mono uppercase tracking-widest text-slate-600 mb-4 font-black group-focus-within/field:text-brand-indigo transition-colors">Work Email</label>
-                                <input
+                                <label htmlFor="work-email" className="block text-[10px] font-mono uppercase tracking-widest text-slate-600 mb-4 font-black group-focus-within/field:text-brand-indigo transition-colors">Work Email <span className="text-brand-rose ml-1">*</span></label>
+                                <input id="work-email"
                                     type="email"
                                     name="email"
                                     required
@@ -181,8 +181,8 @@ const Contact: React.FC = () => {
                                 />
                             </div>
                             <div className="group/field">
-                                <label className="block text-[10px] font-mono uppercase tracking-widest text-slate-600 mb-4 font-black group-focus-within/field:text-brand-indigo transition-colors">Technical Scope</label>
-                                <textarea
+                                <label htmlFor="technical-scope" className="block text-[10px] font-mono uppercase tracking-widest text-slate-600 mb-4 font-black group-focus-within/field:text-brand-indigo transition-colors">Technical Scope <span className="text-brand-rose ml-1">*</span></label>
+                                <textarea id="technical-scope"
                                     name="message"
                                     required
                                     rows={5}

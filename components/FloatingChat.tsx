@@ -332,6 +332,8 @@ const FloatingChat: React.FC = () => {
         <form onSubmit={handleSubmit} className="relative flex gap-3 items-center">
             <button 
                 type="button"
+                aria-label="Toggle voice input"
+                aria-pressed={isListening}
                 onClick={toggleListening}
                 className={`p-3.5 rounded-full transition-all duration-300 ${
                     isListening 
@@ -352,14 +354,14 @@ const FloatingChat: React.FC = () => {
 
             <div className="relative flex-grow">
                 <input 
-                    type="text" 
+                    type="text" id="chat-message-input" aria-label="Type your message"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder={isListening ? "Listening..." : "Type your message..."}
                     className="w-full bg-slate-50 border-2 border-slate-100 rounded-full pl-5 pr-14 py-3.5 text-sm text-black font-bold focus:outline-none focus:border-brand-indigo focus:bg-white transition-all placeholder:text-slate-400"
                 />
                 <button 
-                    type="submit"
+                    type="submit" aria-label="Send message"
                     disabled={!input.trim() || isTyping}
                     className="absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-brand-indigo text-white rounded-full hover:bg-brand-violet transition-colors disabled:opacity-0 shadow-md"
                 >
