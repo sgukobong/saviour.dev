@@ -2,22 +2,22 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const Skills: React.FC = () => {
-  const skillCategories = [
+  const competenceCategories = [
     {
-      title: 'AI & Machine Learning',
-      skills: ['Orchestration Engines', 'LLM Fine-tuning', 'Vector Databases', 'Autonomous Agents', 'RAG Architectures']
+      title: 'AI Product Engineering',
+      skills: ['AI SaaS Development', 'Intelligent Workflow Automation', 'AI Agents & Chatbot Systems', 'Prompt Engineering', 'AI-Assisted Learning']
     },
     {
-      title: 'Systems & Architecture',
-      skills: ['SaaS Design Patterns', 'Distributed Systems', 'Cloud Native (Firebase/AWS)', 'Performance Optimization', 'Security Architectures']
+      title: 'Full-Stack Development',
+      skills: ['React / TypeScript / Vite', 'Node.js', 'Firebase Architecture', 'REST APIs', 'Supabase / PostgreSQL', 'PWA']
     },
     {
-      title: 'Frontend Engineering',
-      skills: ['React / TypeScript', 'Design Systems', 'Micro-frontends', 'State Management', 'Complex Motion Systems']
+      title: 'Systems & Strategy',
+      skills: ['Product & System Design', 'LMS & EdTech Platforms', 'Business Process Automation', 'Rapid Iteration', 'Cross-functional Collaboration']
     },
     {
-      title: 'Tools & Ecosystem',
-      skills: ['Vite', 'TailwindCSS', 'CI/CD Pipelines', 'Vercel / Netlify', 'Product Analytics']
+      title: 'Infrastructure & Tools',
+      skills: ['Google Cloud Run', 'Vercel', 'Git & GitHub', 'Docker', 'Postman', 'n8n / Zapier', 'Airtable']
     }
   ];
 
@@ -31,15 +31,15 @@ const Skills: React.FC = () => {
           className="mb-144"
         >
           <span className="text-caption font-bold uppercase tracking-[0.2em] text-future-blue mb-6 block">
-            Systems Capability Grid
+            My Expertise
           </span>
           <h1 className="text-display font-w350 text-midnight-ink">
-            Technical Stack & Expertise.
+            How I Build & What I Use.
           </h1>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-midnight-ink/5 border border-midnight-ink/5">
-          {skillCategories.map((category, index) => (
+          {competenceCategories.map((category, index) => (
             <motion.div
               key={category.title}
               initial={{ opacity: 0 }}
@@ -64,11 +64,11 @@ const Skills: React.FC = () => {
         </div>
       </section>
 
-      {/* Stack Summary - Canvas layering */}
+      {/* Stack Summary */}
       <section className="bg-canvas py-144 px-4 md:px-12 border-t border-midnight-ink/5 mt-144">
         <div className="max-w-[1440px] mx-auto text-center">
-           <p className="text-slate-comment text-caption leading-relaxed max-w-xl mx-auto">
-             My technical stack is curated for precision and performance. I prioritize tools that offer systemic integrity and architectural flexibility, enabling the build of high-stakes intelligent platforms.
+           <p className="text-slate-comment text-caption leading-relaxed max-w-2xl mx-auto uppercase tracking-[0.2em]">
+             Focusing on practical AI solutions that improve operations, learning experiences, and decision-making for real-world products.
            </p>
         </div>
       </section>

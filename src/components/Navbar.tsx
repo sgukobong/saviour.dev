@@ -13,9 +13,9 @@ const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'About', path: '/about' },
-    { name: 'Projects', path: '/projects' },
+    { name: 'Work', path: '/projects' },
     { name: 'Experience', path: '/experience' },
-    { name: 'Skills', path: '/skills' },
+    { name: 'Capability', path: '/skills' },
   ];
 
   return (
@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
           to="/contact"
           className="btn-pill bg-midnight-ink text-white hover:bg-future-blue text-caption uppercase tracking-widest transition-all duration-500"
         >
-          Initiate Transmission
+          Get in Touch
         </Link>
       </div>
     </nav>

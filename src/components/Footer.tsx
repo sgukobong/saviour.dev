@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
           <div className="max-w-md">
             <h3 className="text-heading-lg font-w350 mb-10 tracking-tight text-midnight-ink uppercase">saviour.dev</h3>
             <p className="text-slate-comment text-caption leading-relaxed mb-14 max-w-xs">
-              AI Systems Engineer identity platform. Communicating technical authority, product thinking, and AI-native engineering capability.
+              AI Product Engineer identity platform. Architecting intelligent systems for the African context and global civil action.
             </p>
           </div>
           
@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
               <span className="text-caption font-bold uppercase tracking-[0.2em] text-midnight-ink/40">Social</span>
               <a href="https://linkedin.com/in/sgukobong" target="_blank" rel="noopener noreferrer" className="nav-link text-caption uppercase tracking-widest">LinkedIn</a>
               <a href="https://github.com/sgukobong" target="_blank" rel="noopener noreferrer" className="nav-link text-caption uppercase tracking-widest">GitHub</a>
-              <a href="https://wa.me/your-whatsapp" target="_blank" rel="noopener noreferrer" className="nav-link text-caption uppercase tracking-widest">WhatsApp</a>
+              <a href="mailto:sgukobong@gmail.com" className="nav-link text-caption uppercase tracking-widest">Email</a>
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
           <div className="flex items-center gap-10">
             <div className="flex items-center gap-4">
               <span className="w-1.5 h-1.5 bg-future-blue rounded-full animate-pulse"></span>
-              <span className="text-midnight-ink/40">System Status: Optimal</span>
+              <span className="text-midnight-ink/40">Abuja, Nigeria — Remote</span>
             </div>
           </div>
         </div>

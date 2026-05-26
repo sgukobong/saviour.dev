@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MessageCircle, Linkedin, Send } from 'lucide-react';
+import { Mail, MessageCircle, Linkedin, Send, MapPin, Phone } from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = `mailto:hello@saviour.dev?subject=System Audit Request from ${formState.name}&body=${formState.message}`;
+    window.location.href = `mailto:sgukobong@gmail.com?subject=Inquiry from ${formState.name}&body=${formState.message}`;
   };
 
   return (
@@ -20,10 +20,10 @@ const Contact: React.FC = () => {
           className="mb-144"
         >
           <span className="text-caption font-bold uppercase tracking-[0.2em] text-future-blue mb-6 block">
-            Initiate Contact
+            Get in Touch
           </span>
           <h1 className="text-display font-w350 text-midnight-ink">
-            Request System Audit or Collaboration.
+            Let's build something together.
           </h1>
         </motion.div>
 
@@ -34,13 +34,15 @@ const Contact: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <p className="text-heading-lg font-w350 text-slate-comment mb-22 leading-relaxed">
-              For high-stakes AI system design, architectural consulting, or premium product engineering, reach out through any of the following channels.
+              If you have a high-stakes AI system to design, a SaaS product to scale, or an automated workflow to architect, reach out through any of the following channels.
             </p>
             
             <div className="flex flex-col gap-10">
               {[
-                { icon: Mail, label: 'Email', value: 'hello@saviour.dev', href: 'mailto:hello@saviour.dev' },
-                { icon: MessageCircle, label: 'WhatsApp', value: 'Instant encrypted comms', href: 'https://wa.me/your-whatsapp' },
+                { icon: MapPin, label: 'Location', value: 'Abuja, Nigeria', href: '#' },
+                { icon: Mail, label: 'Email', value: 'sgukobong@gmail.com', href: 'mailto:sgukobong@gmail.com' },
+                { icon: Phone, label: 'Phone', value: '+234 806 910 7294', href: 'tel:+2348069107294' },
+                { icon: MessageCircle, label: 'WhatsApp', value: 'Instant encrypted comms', href: 'https://wa.me/2348069107294' },
                 { icon: Linkedin, label: 'LinkedIn', value: 'Professional trajectory', href: 'https://linkedin.com/in/sgukobong' }
               ].map((item, i) => (
                 <a key={i} href={item.href} className="flex items-center gap-6 group text-midnight-ink hover:text-future-blue transition-all duration-300">
@@ -84,17 +86,17 @@ const Contact: React.FC = () => {
               />
             </div>
             <div className="flex flex-col gap-4">
-              <label className="text-caption font-bold uppercase tracking-widest text-midnight-ink">System Brief</label>
+              <label className="text-caption font-bold uppercase tracking-widest text-midnight-ink">Message</label>
               <textarea 
                 required
                 rows={4}
                 className="bg-ghost-white border-none p-6 text-caption outline-none focus:ring-1 focus:ring-future-blue transition-all duration-300 resize-none"
-                placeholder="Briefly describe the system or collaboration scope..."
+                placeholder="Briefly describe your project or inquiry..."
                 onChange={(e) => setFormState({...formState, message: e.target.value})}
               />
             </div>
             <button type="submit" className="w-full btn-pill bg-midnight-ink text-white hover:bg-future-blue flex items-center justify-center gap-6 py-6 transition-all">
-              Initiate Transmission <Send className="w-4 h-4" />
+              Send Message <Send className="w-4 h-4" />
             </button>
           </motion.form>
         </div>

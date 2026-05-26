@@ -6,27 +6,34 @@ const Experience: React.FC = () => {
   const [experiences, setExperiences] = useState<ExperienceType[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const mockExperiences: ExperienceType[] = [
+  const curatedExperiences: ExperienceType[] = [
     {
-      id: '1',
-      company: 'Self-Employed / Stealth Startup',
-      role: 'AI Product Engineer & Systems Lead',
-      period: '2024 — Present',
-      description: 'Architecting end-to-end intelligent systems, focusing on AI-native product design and scalable cloud architectures.'
+      id: 'asterverse',
+      company: 'Asterverse Integrated Solutions',
+      role: 'AI Product Engineer',
+      period: 'Jan 2025 — Present',
+      description: 'Designing and developing AI-powered SaaS products and scalable digital systems. Integrating Gemini, OpenAI, and Claude APIs into production environments. Building workflow automation systems using n8n and cloud-native services to optimize operational efficiency.'
     },
     {
-      id: '2',
-      company: 'Previous Tech Lead Role',
-      role: 'Frontend Engineering Lead',
-      period: '2022 — 2024',
-      description: 'Led a team of engineers in building premium SaaS interfaces and optimizing system performance.'
+      id: 'cpl',
+      company: 'Crossing Party Lines',
+      role: 'Apps and Agents Developer',
+      period: 'Feb 2026 — Present',
+      description: 'Developing lightweight applications and AI-powered agents supporting civil rights and social action programs. Translating operational needs into functional AI tools. Building automation-driven workflows for remote-first team coordination.'
+    },
+    {
+      id: 'outsource',
+      company: 'Outsource Global',
+      role: 'LMS Specialist / Educational Systems Developer',
+      period: 'Feb 2024 — Jan 2025',
+      description: 'Optimized digital learning systems supporting scalable training workflows. Built automated reporting and progress-tracking systems to improve visibility. Focused on engagement and structured learning delivery.'
     }
   ];
 
   useEffect(() => {
     const fetchExp = async () => {
       const data = await getExperiences();
-      setExperiences(data.length > 0 ? data : mockExperiences);
+      setExperiences(data.length > 0 ? data : curatedExperiences);
       setLoading(false);
     };
     fetchExp();
@@ -42,10 +49,10 @@ const Experience: React.FC = () => {
           className="mb-144"
         >
           <span className="text-caption font-bold uppercase tracking-[0.2em] text-future-blue mb-6 block">
-            Career Trajectory
+            My Journey
           </span>
           <h1 className="text-display font-w350 text-midnight-ink">
-            Evolution of a Systems Architect.
+            Building and Leading Intelligent Systems.
           </h1>
         </motion.div>
 
@@ -62,7 +69,7 @@ const Experience: React.FC = () => {
               <div className={`w-full md:w-1/2 flex flex-col items-start ${index % 2 === 0 ? 'md:items-end md:text-right' : 'md:items-start md:text-left'} px-4 md:px-11`}>
                 <span className="text-caption font-bold text-future-blue mb-4 tracking-[0.2em] uppercase">{exp.period}</span>
                 <h3 className="text-heading-lg font-w350 text-midnight-ink mb-2 uppercase tracking-tight">{exp.company}</h3>
-                <h4 className="text-caption font-regular text-slate-comment mb-6">{exp.role}</h4>
+                <h4 className="text-caption font-regular text-slate-comment mb-6 italic">{exp.role}</h4>
                 <p className="text-caption text-slate-comment leading-relaxed max-w-md">
                   {exp.description}
                 </p>
@@ -74,15 +81,15 @@ const Experience: React.FC = () => {
         </div>
       </section>
 
-      {/* Philosophy Section with Canvas Background */}
+      {/* Philosophy Section */}
       <section className="bg-canvas py-144 px-4 md:px-12 border-t border-midnight-ink/5 mt-144">
         <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-22 items-center">
            <div>
-              <span className="text-caption font-bold text-midnight-ink/30 uppercase tracking-[0.3em] mb-6 block">Operational Philosophy</span>
-              <h2 className="text-display font-w350 text-midnight-ink mb-11 leading-tight">Intellectual Rigor.</h2>
+              <span className="text-caption font-bold text-midnight-ink/30 uppercase tracking-[0.3em] mb-6 block">Engineering Philosophy</span>
+              <h2 className="text-display font-w350 text-midnight-ink mb-11 leading-tight">Engineering with Purpose.</h2>
            </div>
            <p className="text-slate-comment text-caption leading-relaxed max-w-md">
-             Every role I've undertaken has been a step towards mastering the architecture of intelligence. From frontend lead to AI systems lead, the focus remains on systemic integrity and aesthetic precision.
+             My work is focused on the intersection of human-centered design and technical rigor. From Abuja to remote-first global teams, I build systems that solve real challenges and empower users through thoughtful AI integration.
            </p>
         </div>
       </section>
