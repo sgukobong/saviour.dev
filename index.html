@@ -3,124 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#f2f2f4" />
     
     <!-- Primary Meta Tags -->
-    <title>Saviour Ukobong — AI Developer & Full-Stack Engineer</title>
-    <meta name="title" content="Saviour Ukobong — AI Developer & Full-Stack Engineer">
-    <meta name="description" content="Saviour Ukobong is an AI developer and EdTech engineer specializing in scalable web applications, AI-powered workflows, and automation.">
+    <title>Saviour Ukobong — AI Product Engineer | AI Software Developer | SaaS & Intelligent Systems</title>
+    <meta name="title" content="Saviour Ukobong — AI Product Engineer | AI Software Developer | SaaS & Intelligent Systems">
+    <meta name="description" content="AI Systems Engineer identity platform that communicates technical authority, product thinking, and AI-native engineering capability.">
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
-    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@350;400;500;600&display=swap" rel="stylesheet">
     
-    <style>
-      :root {
-        --bg-0: #fcfcfc;
-        --bg-1: #ffffff;
-        --text-main: #000000;
-        --text-secondary: #333333;
-        --brand-indigo: #4f46e5;
-        --brand-violet: #8b5cf6;
-        --brand-emerald: #10b981;
-        --brand-amber: #f59e0b;
-      }
-
-      body {
-        background-color: var(--bg-0);
-        color: var(--text-main);
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        -webkit-font-smoothing: antialiased;
-        overflow-x: hidden;
-      }
-
-      .font-serif {
-        font-family: 'Instrument Serif', serif;
-      }
-
-      .blob {
-        position: fixed;
-        width: 800px;
-        height: 800px;
-        border-radius: 50%;
-        filter: blur(140px);
-        z-index: -1;
-        opacity: 0.08;
-        pointer-events: none;
-        transition: all 1s ease;
-      }
-
-      .blob-1 { top: -20%; right: -10%; background: var(--brand-indigo); animation: float 30s infinite alternate; }
-      .blob-2 { bottom: -20%; left: -10%; background: var(--brand-emerald); animation: float 35s infinite alternate-reverse; }
-      .blob-3 { top: 40%; left: 30%; background: var(--brand-violet); width: 400px; height: 400px; animation: float 40s infinite alternate; opacity: 0.05; }
-
-      @keyframes float {
-        0% { transform: translate(0, 0) scale(1); }
-        50% { transform: translate(150px, 80px) scale(1.1); }
-        100% { transform: translate(-50px, 120px) scale(0.9); }
-      }
-
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar { width: 6px; }
-      ::-webkit-scrollbar-track { background: var(--bg-0); }
-      ::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 10px; }
-      
-      .selection-vibrant::selection {
-        background: var(--brand-indigo);
-        color: white;
-      }
-    </style>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              brand: {
-                indigo: '#4f46e5',
-                violet: '#8b5cf6',
-                emerald: '#10b981',
-                amber: '#f59e0b',
-                rose: '#f43f5e',
-                cyan: '#06b6d4'
-              },
-              cosmic: {
-                950: '#fcfcfc',
-                900: '#ffffff',
-                800: '#f1f5f9',
-              }
-            }
-          }
-        }
-      }
-    </script>
-  <script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
-    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "vite": "https://esm.sh/vite@^7.3.0",
-    "jspdf": "https://esm.sh/jspdf@^3.0.4",
-    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@^2.89.0",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
-    "react-markdown": "https://esm.sh/react-markdown@^10.1.0",
-    "@netlify/functions": "https://esm.sh/@netlify/functions@^5.1.2",
-    "lucide-react": "https://esm.sh/lucide-react@^0.475.0"
-  }
-}
-</script>
-</head>
-  <body class="selection-vibrant">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
+    <!-- Design System will be handled by Tailwind and src/index.css -->
+  </head>
+  <body>
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
+    <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

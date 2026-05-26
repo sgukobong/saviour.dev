@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Colors */
+  --color-midnight-ink: #0f1012;
+  --color-ghost-white: #f2f2f4;
+  --color-canvas: #fdfdfd;
+  --color-skyline-gray: #868788;
+  --color-slate-comment: #8f8f8f;
+  --color-deep-graphite: #020201;
+  --color-future-blue: #0071e3;
+
+  /* Typography — Font Families */
+  --font-pp-neue-montreal: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Typography — Scale */
+  --text-caption: 10px;
+  --leading-caption: 1.2;
+  --tracking-caption: -0.02em;
+  --text-heading-lg: 18px;
+  --leading-heading-lg: 1.2;
+  --tracking-heading-lg: -0.02em;
+  --text-display: 27px;
+  --leading-display: 1.2;
+  --tracking-display: -0.02em;
+
+  /* Typography — Weights */
+  --font-weight-w350: 350;
+  --font-weight-regular: 400;
+
+  /* Spacing */
+  --spacing-4: 4px;
+  --spacing-6: 6px;
+  --spacing-10: 10px;
+  --spacing-11: 11px;
+  --spacing-22: 22px;
+  --spacing-30: 30px;
+  --spacing-34: 34px;
+  --spacing-35: 35px;
+  --spacing-50: 50px;
+  --spacing-69: 69px;
+  --spacing-94: 94px;
+  --spacing-113: 113px;
+  --spacing-130: 130px;
+  --spacing-144: 144px;
+  --spacing-220: 220px;
+
+  /* Layout */
+  --section-gap: 94px;
+  --element-gap: 6px;
+
+  /* Border Radius */
+  --radius-sm: 1.8px;
+  --radius-lg: 10px;
+  --radius-3xl: 26px;
+  --radius-full: 54px;
+  --radius-full-2: 63px;
+
+  /* Named Radii */
+  --radius-misc: 54px;
+  --radius-buttons: 10px;
+  --radius-pillbuttons: 26px;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-ghost-white);
+    color: var(--color-midnight-ink);
+    font-family: var(--font-pp-neue-montreal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+    letter-spacing: -0.02em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: var(--font-weight-w350);
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  /* Ghost Button: Call to action with minimal visual emphasis */
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--color-midnight-ink);
+    font-weight: var(--font-weight-regular);
+    letter-spacing: -0.02em;
+    transition: all 0.3s ease;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+  }
+  .btn-ghost:hover {
+    color: var(--color-future-blue);
+  }
+  
+  /* Pill Tag Button: Top navigation and filtering options */
+  .tag-pill {
+    background-color: rgba(117, 117, 117, 0.1);
+    color: rgba(0, 0, 0, 0.4);
+    border-radius: var(--radius-lg);
+    padding: 0 10px;
+    font-weight: var(--font-weight-regular);
+    font-size: 13px;
+    letter-spacing: -0.02em;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    height: 24px;
+  }
+  .tag-pill:hover {
+    background-color: rgba(117, 117, 117, 0.2);
+    color: var(--color-midnight-ink);
+  }
+  
+  /* Search Input Button / Pill Button: Primary search trigger or distinct pill shape */
+  .btn-pill {
+    background-color: rgba(12, 13, 15, 0.05);
+    color: var(--color-deep-graphite);
+    border-radius: var(--radius-3xl);
+    padding: 8px 24px;
+    font-weight: var(--font-weight-regular);
+    font-size: 13px;
+    letter-spacing: -0.02em;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-pill:hover {
+    background-color: var(--color-midnight-ink);
+    color: white;
+  }
+
+  /* Nav Link: Primary navigation links */
+  .nav-link {
+    color: var(--color-midnight-ink);
+    font-weight: var(--font-weight-regular);
+    font-size: 13px;
+    letter-spacing: -0.02em;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: var(--color-future-blue);
+  }
+
+  /* Layout Utilities */
+  .section-padding {
+    padding-top: var(--spacing-94);
+    padding-bottom: var(--spacing-94);
+  }
+  
+  .element-gap {
+    gap: var(--spacing-6);
+  }
+}
+
+/* Custom Scrollbar for Augen Pro */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ghost-white);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(15, 16, 18, 0.1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 113, 227, 0.5);
+}
