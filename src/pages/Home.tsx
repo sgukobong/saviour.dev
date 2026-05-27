@@ -7,15 +7,16 @@ const Home: React.FC = () => {
   return (
     <div className="flex flex-col w-full overflow-x-hidden">
       {/* Hero Section - Optimized for Mobile & Bottom-Left alignment */}
-      <section className="min-h-screen flex items-end justify-start relative overflow-hidden bg-white px-6 md:px-113 pb-22 md:pb-144">
+      <section className="min-h-[92vh] flex items-end justify-start relative overflow-hidden bg-white px-6 md:px-113 pb-22 md:pb-144">
         {/* Background Image Container */}
         <div className="absolute inset-0 z-0">
           <img 
             src="/hero-bg.png" 
             alt="Engineering Background" 
-            className="w-full h-full object-cover opacity-60 mix-blend-multiply"
+            className="w-full h-full object-cover opacity-55 mix-blend-multiply"
           />
-          <div className="absolute inset-0 bg-gradient-to-tr from-white/60 via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.92)_0%,rgba(246,248,251,0.72)_44%,rgba(238,240,255,0.42)_100%)]"></div>
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ghost-white to-transparent"></div>
         </div>
 
         <motion.div
@@ -25,20 +26,20 @@ const Home: React.FC = () => {
           className="max-w-4xl z-10 text-left w-full pt-144"
         >
           {/* Identity Tag - Scaled for mobile */}
-          <span className="text-[10px] md:text-caption font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] text-future-blue mb-6 md:mb-10 block">
+          <span className="section-kicker mb-6 md:mb-10 block">
             AI Product Engineer building intelligent systems
           </span>
           
           {/* Headline - Responsive typography */}
-          <h1 className="text-[34px] sm:text-[48px] md:text-[80px] font-w350 tracking-[-0.04em] text-midnight-ink leading-[1.1] mb-10 md:mb-14 drop-shadow-sm">
+          <h1 className="text-[34px] sm:text-[48px] md:text-[80px] font-w350 tracking-normal text-midnight-ink leading-[1.1] mb-10 md:mb-14 drop-shadow-sm">
             Building the next generation of AI-native products.
           </h1>
           
           {/* Core Service Areas - Stacked on small mobile */}
-          <div className="flex flex-wrap gap-4 md:gap-14 mb-14 md:mb-22">
-            <button className="btn-ghost text-[10px] md:text-caption uppercase tracking-[0.1em] md:tracking-[0.2em] hover:text-future-blue transition-colors">SaaS Development</button>
-            <button className="btn-ghost text-[10px] md:text-caption uppercase tracking-[0.1em] md:tracking-[0.2em] hover:text-future-blue transition-colors">AI Automation</button>
-            <button className="btn-ghost text-[10px] md:text-caption uppercase tracking-[0.1em] md:tracking-[0.2em] hover:text-future-blue transition-colors">Systems Design</button>
+          <div className="flex flex-wrap gap-4 md:gap-6 mb-14 md:mb-22">
+            <Link to="/skills" className="tag-pill uppercase tracking-[0.16em] hover:border-future-blue/20 border border-transparent">SaaS Development</Link>
+            <Link to="/skills" className="tag-pill uppercase tracking-[0.16em] bg-soft-mint text-signal-green hover:border-signal-green/20 border border-transparent">AI Automation</Link>
+            <Link to="/skills" className="tag-pill uppercase tracking-[0.16em] bg-soft-amber text-signal-amber hover:border-signal-amber/20 border border-transparent">Systems Design</Link>
           </div>
 
           {/* Primary Action Button */}
@@ -57,13 +58,21 @@ const Home: React.FC = () => {
       </section>
 
       {/* positioning Section - Adjusted grid for mobile */}
-      <section className="py-94 md:py-220 px-6 md:px-12 bg-ghost-white border-t border-midnight-ink/5">
+      <section className="py-94 md:py-144 px-6 md:px-12 bg-ghost-white border-t border-midnight-ink/5">
         <div className="max-w-[1440px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-22">
+          <div className="mb-14 md:mb-22 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+            <div>
+              <span className="section-kicker mb-5 block">Operating Model</span>
+              <h2 className="text-[24px] md:text-display font-w350 text-midnight-ink max-w-xl leading-tight">A sharper path from product problem to reliable AI system.</h2>
+            </div>
+            <div className="accent-line"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-midnight-ink/10 border border-midnight-ink/10">
             {[
-              { num: '01', title: 'Product-First AI', desc: 'Building software where AI drives core functionality and value, going far beyond simple API wrappers.' },
-              { num: '02', title: 'Scalable Architecture', desc: 'Engineering reliable backends and intuitive interfaces designed to handle high-stakes enterprise complexity.' },
-              { num: '03', title: 'Technical Leadership', desc: 'Bridging the gap between engineering rigor and business impact through rapid, high-fidelity iteration.' }
+              { num: '01', title: 'Product-First AI', desc: 'Building software where AI drives core functionality and value, going far beyond simple API wrappers.', accent: 'text-future-blue bg-soft-lavender' },
+              { num: '02', title: 'Scalable Architecture', desc: 'Engineering reliable backends and intuitive interfaces designed to handle high-stakes enterprise complexity.', accent: 'text-signal-green bg-soft-mint' },
+              { num: '03', title: 'Technical Leadership', desc: 'Bridging the gap between engineering rigor and business impact through rapid, high-fidelity iteration.', accent: 'text-signal-amber bg-soft-amber' }
             ].map((item, i) => (
               <motion.div 
                 key={i}
@@ -71,9 +80,9 @@ const Home: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="flex flex-col gap-6 md:gap-10"
+                className="surface-panel p-8 md:p-11 flex flex-col gap-6 md:gap-10"
               >
-                <span className="text-[10px] md:text-caption font-bold text-future-blue tracking-widest uppercase">{item.num}. Approach</span>
+                <span className={`w-fit rounded-lg px-3 py-2 text-[10px] md:text-caption font-bold tracking-widest uppercase ${item.accent}`}>{item.num}. Approach</span>
                 <h3 className="text-[16px] md:text-heading-lg font-w350 text-midnight-ink">{item.title}</h3>
                 <p className="text-slate-comment text-caption leading-relaxed max-w-sm">
                   {item.desc}
@@ -85,7 +94,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Philosophy Section */}
-      <section className="py-94 md:py-220 px-6 md:px-12 bg-canvas border-y border-midnight-ink/5">
+      <section className="py-94 md:py-144 px-6 md:px-12 bg-canvas border-y border-midnight-ink/5">
         <div className="max-w-[1440px] mx-auto flex justify-center text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
@@ -93,7 +102,7 @@ const Home: React.FC = () => {
             viewport={{ once: true }}
             className="max-w-2xl"
           >
-            <span className="text-caption font-bold text-midnight-ink/30 uppercase tracking-[0.3em] mb-6 md:mb-11 block">Engineering Philosophy</span>
+            <span className="section-kicker mb-6 md:mb-11 block">Engineering Philosophy</span>
             <h2 className="text-[22px] md:text-display font-w350 mb-6 md:mb-11 leading-tight text-midnight-ink">Clarity and Precision.</h2>
             <p className="text-slate-comment font-regular text-[16px] md:text-heading-lg leading-relaxed">
               I believe in building systems that are as intuitive as they are powerful. My focus is on creating tools that solve real human problems through clean code and thoughtful design.

@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -23,7 +23,7 @@ const PageLoader = () => (
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="min-h-screen bg-ghost-white text-midnight-ink font-neue-montreal flex flex-col">
+      <div className="min-h-screen text-midnight-ink font-neue-montreal flex flex-col">
         <Navbar />
         
         <main className="flex-grow">
@@ -35,6 +35,7 @@ const App: React.FC = () => {
               <Route path="/experience" element={<Experience />} />
               <Route path="/skills" element={<Skills />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>
         </main>

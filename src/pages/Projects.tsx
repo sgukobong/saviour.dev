@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { getProjects, Project } from '../services/firebaseService';
-import { ExternalLink, ArrowRight, Shield, Zap } from 'lucide-react';
+import { ExternalLink, ArrowRight, Shield, Zap, X } from 'lucide-react';
 
 const Projects: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
 
   const curatedProducts: Project[] = [
@@ -47,32 +48,6 @@ const Projects: React.FC = () => {
       },
       links: { live: 'https://tabmeet.vercel.app' }
     },
-    {
-      id: 'craftmata',
-      title: 'Craftmata',
-      description: 'A trust-based marketplace connecting customers with biometrically verified skilled artisans in Nigeria.',
-      tags: ['Identity', 'Trust', 'Marketplace'],
-      caseStudy: {
-        problem: 'The risk and uncertainty associated with finding reliable skilled artisans in the informal economy.',
-        solution: 'A verification-first platform using biometric ID checks and community-driven reviews.',
-        impact: 'Ensuring every handshake is backed by a verified identity and high quality standard.',
-        techStack: ['Biometrics', 'Verification API', 'Trust Ranking']
-      },
-      links: { live: 'https://craftmata.vercel.app/' }
-    },
-    {
-      id: 'stridu',
-      title: 'Stridu',
-      description: 'A learning companion that guides students through concepts for deeper understanding and mastery.',
-      tags: ['EdTech', 'Learning', 'AI'],
-      caseStudy: {
-        problem: 'Passive learning methods resulting in surface-level memorization instead of conceptual understanding.',
-        solution: 'Guided walk-throughs of concepts, quizzes, and challenges designed for deep cognitive engagement.',
-        impact: 'Improved comprehension and retention through active, AI-guided discovery.',
-        techStack: ['Adaptive Learning', 'Logic Engines', 'React']
-      },
-      links: { live: 'https://stridu.vercel.app/' }
-    }
   ];
 
   useEffect(() => {
@@ -83,6 +58,22 @@ const Projects: React.FC = () => {
     };
     fetchProjects();
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = selectedProject ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedProject]);
+
+  useEffect(() => {
+    if (!selectedProject) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedProject(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedProject]);
 
   if (loading) {
     return (
@@ -101,7 +92,7 @@ const Projects: React.FC = () => {
           transition={{ duration: 0.8 }}
           className="mb-144"
         >
-          <span className="text-caption font-bold uppercase tracking-[0.2em] text-future-blue mb-6 block">
+          <span className="section-kicker mb-6 block">
             Selected Work
           </span>
           <h1 className="text-display font-w350 text-midnight-ink max-w-2xl leading-tight">
@@ -109,7 +100,7 @@ const Projects: React.FC = () => {
           </h1>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-px bg-midnight-ink/5 border border-midnight-ink/5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-px bg-midnight-ink/10 border border-midnight-ink/10">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -117,7 +108,7 @@ const Projects: React.FC = () => {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: index * 0.1 }}
-              className="group bg-white p-11 flex flex-col justify-between hover:bg-canvas transition-colors duration-500"
+              className="group bg-white p-8 md:p-11 flex flex-col justify-between hover:bg-canvas transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_22px_70px_rgba(15,16,18,0.08)]"
             >
               <div>
                 <div className="flex flex-wrap gap-2 mb-11">
@@ -135,22 +126,22 @@ const Projects: React.FC = () => {
                 {project.caseStudy && (
                   <div className="pt-11 border-t border-midnight-ink/5 space-y-8">
                     <div className="flex flex-col gap-2">
-                      <span className="text-[10px] font-bold text-midnight-ink/40 uppercase tracking-widest flex items-center gap-2">
+                      <span className="text-[10px] font-bold text-midnight-ink/50 uppercase tracking-widest flex items-center gap-2">
                         <Shield className="w-3 h-3" /> The Challenge
                       </span>
                       <p className="text-caption text-slate-comment leading-relaxed">{project.caseStudy.problem}</p>
                     </div>
                     <div className="flex flex-col gap-2">
-                      <span className="text-[10px] font-bold text-future-blue/40 uppercase tracking-widest flex items-center gap-2">
+                      <span className="text-[10px] font-bold text-signal-green uppercase tracking-widest flex items-center gap-2">
                         <Zap className="w-3 h-3" /> Real-World Impact
                       </span>
-                      <p className="text-caption text-future-blue font-bold tracking-tight">{project.caseStudy.impact}</p>
+                      <p className="text-caption text-midnight-ink font-bold tracking-tight">{project.caseStudy.impact}</p>
                     </div>
                   </div>
                 )}
               </div>
 
-              <div className="mt-22 flex items-center justify-between">
+              <div className="mt-22 flex items-center justify-between gap-6">
                 <div className="flex gap-10">
                   {project.links?.live && (
                     <a 
@@ -163,7 +154,11 @@ const Projects: React.FC = () => {
                     </a>
                   )}
                 </div>
-                <button className="btn-ghost text-[10px] font-bold uppercase flex items-center gap-2 group/btn tracking-widest">
+                <button
+                  type="button"
+                  onClick={() => setSelectedProject(project)}
+                  className="btn-ghost text-[10px] font-bold uppercase flex items-center gap-2 group/btn tracking-widest"
+                >
                   View Details <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -178,12 +173,86 @@ const Projects: React.FC = () => {
            <div>
               <span className="text-caption font-bold text-future-blue uppercase tracking-[0.3em] mb-6 block">Our Commitment</span>
               <h2 className="text-display font-w350 text-midnight-ink mb-11 leading-tight">Focusing on Integrity.</h2>
+              <div className="accent-line"></div>
            </div>
            <p className="text-slate-comment text-caption leading-relaxed max-w-md">
              Speed is valuable, but trust is essential. Every system I architect is built on the commitment that technology should be reliable, traceable, and designed with the user's best interest in mind.
-           </p>
+          </p>
         </div>
       </section>
+
+      {selectedProject && (
+        <div
+          className="fixed inset-0 z-[70] bg-midnight-ink/40 backdrop-blur-sm px-4 py-6 md:p-12 flex items-end md:items-center justify-center"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="project-detail-title"
+          onClick={() => setSelectedProject(null)}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full max-w-3xl bg-white border border-midnight-ink/10 rounded-lg shadow-[0_20px_80px_rgba(15,16,18,0.16)] max-h-[88vh] overflow-y-auto"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="sticky top-0 bg-white/95 backdrop-blur border-b border-midnight-ink/5 p-6 md:p-8 flex items-start justify-between gap-6">
+              <div>
+                <span className="text-[10px] font-bold text-future-blue uppercase tracking-[0.3em] mb-3 block">Case Study</span>
+                <h2 id="project-detail-title" className="text-heading-lg font-w350 uppercase tracking-widest text-midnight-ink">{selectedProject.title}</h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedProject(null)}
+                className="w-10 h-10 rounded-full bg-ghost-white border border-midnight-ink/5 flex items-center justify-center text-midnight-ink hover:text-future-blue transition-colors shrink-0"
+                aria-label="Close project details"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="p-6 md:p-8 grid gap-8">
+              <p className="text-[16px] md:text-heading-lg text-slate-comment leading-relaxed max-w-2xl">
+                {selectedProject.description}
+              </p>
+
+              {selectedProject.caseStudy && (
+                <div className="grid gap-px bg-midnight-ink/5 border border-midnight-ink/5">
+                  {[
+                    ['Problem', selectedProject.caseStudy.problem],
+                    ['Solution', selectedProject.caseStudy.solution],
+                    ['Impact', selectedProject.caseStudy.impact]
+                  ].map(([label, copy]) => (
+                    <div key={label} className="bg-canvas p-6 md:p-8">
+                      <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-midnight-ink/40 mb-3 block">{label}</span>
+                      <p className="text-caption md:text-[13px] text-slate-comment leading-relaxed">{copy}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-midnight-ink/40 mb-4 block">Technical Focus</span>
+                <div className="flex flex-wrap gap-3">
+                  {(selectedProject.caseStudy?.techStack || selectedProject.tags).map((item) => (
+                    <span key={item} className="tag-pill text-[10px] uppercase tracking-widest">{item}</span>
+                  ))}
+                </div>
+              </div>
+
+              {selectedProject.links?.live && (
+                <a
+                  href={selectedProject.links.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-pill bg-midnight-ink text-white hover:bg-future-blue inline-flex w-fit gap-4"
+                >
+                  Visit Product <ExternalLink className="w-4 h-4" />
+                </a>
+              )}
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };
